@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Medical Diagnosis App</string>
     <string name="title_activity_diagnose_page1">diagnoseActivityPage1</string>
+    <string name="gmaps_api_key">AIzaSyDOm9B1j6HAeZ-6wIi-aZAtko6-OHQrH0I</string>
 </resources>

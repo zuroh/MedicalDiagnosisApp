@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     tools:context=".LocateActivity">
 
     <android.support.v7.widget.Toolbar
@@ -116,7 +117,28 @@
         android:layout_height="79dp"
         android:text="Locate Activity"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="167dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="74dp" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapDisplay"
+        android:layout_width="265dp"
+        android:layout_height="241dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.526"
+        map:cameraBearing="0"
+        map:cameraTargetLat="1.3521"
+        map:cameraTargetLng="103.8198"
+        map:cameraTilt="30"
+        map:cameraZoom="10" />
+
 
 </android.support.constraint.ConstraintLayout>
