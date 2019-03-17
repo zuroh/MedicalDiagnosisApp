@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Medical Diagnosis App</string>
+    <string name="title_activity_diagnose_page1">diagnoseActivityPage1</string>
+</resources>
