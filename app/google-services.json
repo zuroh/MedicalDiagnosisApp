@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "735582874531",
+    "firebase_url": "https://cz2006.firebaseio.com",
+    "project_id": "cz2006",
+    "storage_bucket": "cz2006.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735582874531:android:6f1a5c48e8cf1758",
+        "android_client_info": {
+          "package_name": "com.example.medicaldiagnosisapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735582874531-veo3r0e16qv2fqfis7j0ht183rb67ein.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medicaldiagnosisapp",
+            "certificate_hash": "8389b66f9f226eac805d4f5c5174abf93d3ac662"
+          }
+        },
+        {
+          "client_id": "735582874531-6cgcaaiuqmk41aspd9pf9b0mkuo0f7jj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpL1r55ueQ5iU4Di2Ll9rkA1NzjYI5kcY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735582874531-6cgcaaiuqmk41aspd9pf9b0mkuo0f7jj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
