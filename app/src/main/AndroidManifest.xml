@@ -3,9 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.medicaldiagnosisapp"
     tools:ignore="ExtraText">
+
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +20,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".ApiJsonTmp"></activity>
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@menu/admin_navigation_items" />
+
+        <activity
+            android:name=".AdminActivityFinal"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".AdminActivity2"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".AdminActivity1"
+            android:launchMode="singleTask" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".ChangeLanguageActivity" />
         <activity android:name=".HeatActivity" />
         <activity android:name=".PoisonActivity" />
@@ -34,20 +56,21 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/gmaps_api_key"/>
+            android:value="@string/gmaps_api_key" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
+
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false"/>
+            android:required="false" />
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
 </manifest>

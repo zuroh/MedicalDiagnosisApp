@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_admin_restart"
+        android:title="Admin Restart"
+        android:icon="@drawable/admin_restart" />
+    <item android:id="@+id/action_admin_exit"
+        android:title="Admin Exit"
+        android:icon="@drawable/admin_exit" />
+
+// image obtained from open source, https://material.io
+</menu>
