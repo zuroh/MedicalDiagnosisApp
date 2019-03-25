@@ -42,6 +42,17 @@ public class LocateActivity extends AppCompatActivity implements OnMapReadyCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locate);
 
+        //tmp
+        Button tmpButton = (Button) findViewById(R.id.tmpButton);
+        tmpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToApi = new Intent(getApplicationContext(), ApiJsonTmp.class);
+                startActivity(moveToApi);
+            }
+        });
+        //end tmp
+
         //Toolbar Buttons Start Here
 
         Button diagnoseButton = (Button) findViewById(R.id.diagnoseButton);
