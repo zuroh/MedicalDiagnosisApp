@@ -30,6 +30,9 @@
             android:name=".AdminActivityFinal"
             android:launchMode="singleTask" />
         <activity
+            android:name=".AdminActivity3"
+            android:launchMode="singleTask" />
+        <activity
             android:name=".AdminActivity2"
             android:launchMode="singleTask" />
         <activity

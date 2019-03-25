@@ -22,7 +22,6 @@ public class ApiJsonTmp extends AppCompatActivity {
 
     ArrayList<String> genderList = new ArrayList<>();
     String queryUrl = "https://data.gov.sg/api/action/datastore_search?resource_id=3d51e1e1-4069-4e04-85d5-ae3a310e98d4&limit=5";
-    String tmp1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,8 @@ public class ApiJsonTmp extends AppCompatActivity {
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+        JsonObjectRequest jsonObjectRequest;
+        jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, queryUrl, null, new Response.Listener<JSONObject>() {
 
                     @Override
