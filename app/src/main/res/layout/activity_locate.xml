@@ -21,6 +21,19 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="30sp"
         tools:text="@string/Locate_acticity" />
+  
+      <Button
+        android:id="@+id/tmpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="TMP"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/mapDisplay"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent" />
+  
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="500dp">
@@ -42,10 +55,7 @@
             map:cameraTilt="30"
             map:cameraZoom="10" />
 
-
-
     </RelativeLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,7 +66,6 @@
         android:orientation="horizontal"
         android:visibility="visible"
         tools:context=".PoisonActivity">
-
 
         <ImageButton
             android:id="@+id/infoButton"
@@ -150,6 +159,4 @@
 
     </LinearLayout>
 
-
 </LinearLayout>
-
