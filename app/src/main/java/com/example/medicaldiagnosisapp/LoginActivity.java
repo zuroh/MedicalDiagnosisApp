@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         //Toolbar Buttons End Here//
 
-        Button lginButton = (Button) findViewById(R.id.lginButton);
+        Button lginButton = (Button) findViewById(R.id.login);
         lginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
