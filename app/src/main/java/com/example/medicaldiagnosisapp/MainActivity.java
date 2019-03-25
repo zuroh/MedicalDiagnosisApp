@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseReference funFactsRef = mDatabaseRef.child("funfacts");
 
-        Query query = funFactsRef.orderByChild("id").equalTo(2);
+        Query query = funFactsRef.orderByChild("id").equalTo(1);
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
