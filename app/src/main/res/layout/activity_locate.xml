@@ -21,34 +21,48 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="30sp"
         tools:text="@string/Locate_acticity" />
-  
-      <Button
+
+    <Button
         android:id="@+id/tmpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="TMP"
+        android:text="Json Query"
         app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintTop_toBottomOf="@+id/mapDisplay"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent" />
-  
+
+    <Button
+        android:id="@+id/tmpButton2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="aed locations"
+        map:layout_constraintBottom_toTopOf="@+id/toolbar"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/mapDisplay" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="500dp">
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="276dp"
+            android:layout_height="373dp"
             android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="57dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginBottom="70dp"
             map:cameraBearing="0"
             map:cameraTargetLat="1.3521"
             map:cameraTargetLng="103.8198"
