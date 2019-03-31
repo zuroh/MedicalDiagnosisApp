@@ -1,108 +1,182 @@
 package com.example.medicaldiagnosisapp;
 
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.medicaldiagnosisapp.ApiParser.GPS;
+import com.example.medicaldiagnosisapp.ApiParser.KmlParser;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ChasFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ChasFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ChasFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import org.w3c.dom.Document;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class ChasFragment extends Fragment implements IGPSActivity{
 
-    private OnFragmentInteractionListener mListener;
+    private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
+    private Location nearestL = new Location(LocationManager.GPS_PROVIDER);
+    private GPS gps;
 
     public ChasFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChasFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChasFragment newInstance(String param1, String param2) {
-        ChasFragment fragment = new ChasFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        gps = new GPS(this, getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        if (!gps.isRunning()) gps.resumeGPS();
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        // Disconnecting the client invalidates it.
+        Log.i("FieldLayout_StartAct", "onStop called. Disconnecting GPS client");
+        gps.stopGPS();
+        super.onStop();
+    }
+
+    @Override
+    public void locationChanged(double longitude, double latitude) {
+        Log.i("FieldLayout_StartAct", "locationChanged");
+        currentLocation.setLatitude(latitude);
+        currentLocation.setLongitude(longitude);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chas, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_chas, container, false);
+
+        SupportMapFragment ChasFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.frg_chas);  //use SuppoprtMapFragment for using in fragment instead of activity  MapFragment = activity   SupportMapFragment = fragment
+
+        ChasFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap mMap) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+                mMap.clear(); //clear old markers
+
+                //intantiate vars for searching
+                float distanceInMeters = 1000000;
+                int nodeIndex =0;
+                String markerInfo = "";
+
+                //get current loc first
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
+                        .title("Current Location"));
+
+                CameraPosition googlePlex = CameraPosition.builder()
+                        .target(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()))
+                        .zoom(10)
+                        .bearing(0)
+                        .tilt(45)
+                        .build();
+
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
+
+                //find nearest Chas
+                try {
+                    Document doc = KmlParser.createDocumentFromKml(getActivity(), "chas.kml");
+                    int iterations = KmlParser.getNoNodes(doc, "Point");
+                    for (int i = 0; i < 2; i++) { //replace with iterations
+                        Location tmpChasL = KmlParser.getCoordinates(doc, i);
+                        float tmpDist = currentLocation.distanceTo(tmpChasL);
+                        if (tmpDist < distanceInMeters) {
+                            distanceInMeters = tmpDist;
+                            nearestL = tmpChasL;
+                            nodeIndex = i;
+                        }
+                    }
+                    for (int j = 0; j < 7; j++) {
+                        markerInfo += KmlParser.getMarkerInfoName(doc, nodeIndex, j) + "\n";
+                        markerInfo += KmlParser.getMarkerInfoValue(doc, nodeIndex, j) + "\n";
+                    }
+
+                } catch (Exception e) {e.printStackTrace();}
+
+
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(nearestL.getLatitude(), nearestL.getLongitude()))
+                        .title("Nearest Chas")
+                        .snippet(markerInfo)
+                        .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.aed)));//got from icon8 open source
+
+                //gmaps marker options
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+                    @Override
+                    public View getInfoWindow(Marker arg0) {
+                        return null;
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker) {
+
+                        LinearLayout info = new LinearLayout(getActivity());
+                        info.setOrientation(LinearLayout.VERTICAL);
+
+                        TextView title = new TextView(getActivity());
+                        title.setTextColor(Color.BLACK);
+                        title.setGravity(Gravity.CENTER);
+                        title.setTypeface(null, Typeface.BOLD);
+                        title.setText(marker.getTitle());
+
+                        TextView snippet = new TextView(getActivity());
+                        snippet.setTextColor(Color.GRAY);
+                        snippet.setText(marker.getSnippet());
+
+                        info.addView(title);
+                        info.addView(snippet);
+
+                        return info;
+                    }
+
+                });
+            }
+        });
+
+
+        return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

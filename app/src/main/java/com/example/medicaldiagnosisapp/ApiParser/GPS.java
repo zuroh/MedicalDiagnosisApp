@@ -1,89 +1,85 @@
 package com.example.medicaldiagnosisapp.ApiParser;
 
-
-
-/*
-import android.location.Location;
-import android.location.LocationListener;
+import android.app.Activity;
+import android.content.Context;
 import android.location.LocationManager;
 import android.os.Bundle;
+
+import android.location.LocationListener;
+
+import android.location.Location;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
-import com.example.medicaldiagnosisapp.R;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.example.medicaldiagnosisapp.IGPSActivity;
 
+public class GPS {
+    private IGPSActivity main;
 
-public class getCurrentLocation implements LocationListener {
+    // Helper for GPS-Position
+    private LocationListener mlocListener;
+    private LocationManager mlocManager;
 
-*/
-/*    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_locate_aed);
+    private boolean isRunning;
 
-        locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+    public GPS(IGPSActivity main, FragmentActivity fragmentA) {
+        this.main = main;
+
+        // GPS Position
+
+        LocationManager mlocManager = (LocationManager) fragmentA.getSystemService(Context.LOCATION_SERVICE);
+        mlocListener = new MyLocationListener();
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+        // GPS Position END
+        this.isRunning = true;
+        Log.i("FieldLayout_GPS", "GPS Object created");
+    }
+
+    public void stopGPS() {
+        if(isRunning) {
+            if(mlocManager==null)
+                Log.i("FieldLayout_GPS", "no manager");
+            if(mlocListener==null)
+                Log.i("FieldLayout_GPS", "no listener");
+            mlocManager.removeUpdates(mlocListener);
+            this.isRunning = false;
         }
-        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-        onLocationChanged(location);
-
-        mMap = (MapView) findViewById(R.id.mapDisplay);
-
-    }*//*
-
-
-    public static void initialise () {
-        LocationManager locationManager;
-        locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
-*/
-/*        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }*//*
-
-        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-        onLocationChanged(location);
+        Log.i("FieldLayout_GPS", "stopGPS");
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        LatLng currLocat = new LatLng(location.getLatitude(), location.getLongitude());
+    public void resumeGPS() {
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+        this.isRunning = true;
+        Log.i("FieldLayout_GPS", "resumeGPS");
     }
 
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        //This method was deprecated in API level Q.
-        //This callback will never be invoked.
+    public boolean isRunning() {
+        return this.isRunning;
     }
 
-    @Override
-    public void onProviderEnabled(String provider) {
-        //not needed
-    }
+    public class MyLocationListener implements LocationListener {
 
-    @Override
-    public void onProviderDisabled(String provider) {
-        //not needed
+        private final String TAG = MyLocationListener.class.getSimpleName();
+
+        @Override
+        public void onLocationChanged(Location loc) {
+            GPS.this.main.locationChanged(loc.getLongitude(), loc.getLatitude());
+            Log.i("FieldLayout_GPS", "onLocationChanged");
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            Log.i("FieldLayout_GPS", "onStatusChanged");
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Log.i("FieldLayout_GPS", "onProviderEnabled");
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Log.i("FieldLayout_GPS", "onProviderDisabled");
+        }
     }
 }
-
-
-*/

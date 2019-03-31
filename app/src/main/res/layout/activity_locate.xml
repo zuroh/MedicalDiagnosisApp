@@ -48,28 +48,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp">
-
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/mapDisplay"
-            android:layout_width="276dp"
-            android:layout_height="373dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="57dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="70dp"
-            map:cameraBearing="0"
-            map:cameraTargetLat="1.3521"
-            map:cameraTargetLng="103.8198"
-            map:cameraTilt="30"
-            map:cameraZoom="10" />
-
-    </RelativeLayout>
+        android:layout_height="500dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

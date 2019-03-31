@@ -1,25 +1,26 @@
 package com.example.medicaldiagnosisapp;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
-import android.os.Message;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.medicaldiagnosisapp.ApiParser.GPS;
+import com.example.medicaldiagnosisapp.ApiParser.KmlParser;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,13 +29,16 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import static android.content.Context.LOCATION_SERVICE;
-import static android.support.v4.content.ContextCompat.getSystemService;
-import static com.example.medicaldiagnosisapp.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
+import org.w3c.dom.Document;
 
-public class AedFragment extends Fragment {
+public class AedFragment extends Fragment implements IGPSActivity{
+
+    private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
+    private Location nearestL = new Location(LocationManager.GPS_PROVIDER);
+    private GPS gps;
 
     public AedFragment() {
         // Required empty public constructor
@@ -43,7 +47,28 @@ public class AedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        gps = new GPS(this, getActivity());
+    }
 
+    @Override
+    public void onResume() {
+        if (!gps.isRunning()) gps.resumeGPS();
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        // Disconnecting the client invalidates it.
+        Log.i("FieldLayout_StartAct", "onStop called. Disconnecting GPS client");
+        gps.stopGPS();
+        super.onStop();
+    }
+
+    @Override
+    public void locationChanged(double longitude, double latitude) {
+        Log.i("FieldLayout_StartAct", "locationChanged");
+        currentLocation.setLatitude(latitude);
+        currentLocation.setLongitude(longitude);
     }
 
     @Override
@@ -52,7 +77,7 @@ public class AedFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_aed, container, false);
 
-        SupportMapFragment AedFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.frg);  //use SuppoprtMapFragment for using in fragment instead of activity  MapFragment = activity   SupportMapFragment = fragment
+        SupportMapFragment AedFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.frg_aed);  //use SuppoprtMapFragment for using in fragment instead of activity  MapFragment = activity   SupportMapFragment = fragment
 
         AedFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -61,8 +86,18 @@ public class AedFragment extends Fragment {
 
                 mMap.clear(); //clear old markers
 
+                //intantiate vars for searching
+                float distanceInMeters = 1000000;
+                int nodeIndex =0;
+                String markerInfo = "";
+
+                //get current loc first
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
+                        .title("Current Location"));
+
                 CameraPosition googlePlex = CameraPosition.builder()
-                        .target(new LatLng(37.4219999, -122.0862462))
+                        .target(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()))
                         .zoom(10)
                         .bearing(0)
                         .tilt(45)
@@ -70,19 +105,64 @@ public class AedFragment extends Fragment {
 
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
 
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(37.4219999, -122.0862462))
-                        .title("Spider Man"));
+                //find nearest aed
+                try {
+                    Document doc = KmlParser.createDocumentFromKml(getActivity(), "aed.kml");
+                    int iterations = KmlParser.getNoNodes(doc, "Point");
+                    for (int i = 0; i < 2; i++) { //replace with iterations
+                        Location tmpAedL = KmlParser.getCoordinates(doc, i);
+                        float tmpDist = currentLocation.distanceTo(tmpAedL);
+                        if (tmpDist < distanceInMeters) {
+                            distanceInMeters = tmpDist;
+                            nearestL = tmpAedL;
+                            nodeIndex = i;
+                        }
+                    }
+                    for (int j = 0; j < 7; j++) {
+                        markerInfo += KmlParser.getMarkerInfoName(doc, nodeIndex, j) + "\n";
+                        markerInfo += KmlParser.getMarkerInfoValue(doc, nodeIndex, j) + "\n";
+                    }
+
+                } catch (Exception e) {e.printStackTrace();}
+
 
                 mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(37.4629101, -122.2449094))
-                        .title("Iron Man")
-                        .snippet("His Talent : Plenty of money"));
-
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(37.3092293, -122.1136845))
-                        .title("Aed")
+                        .position(new LatLng(nearestL.getLatitude(), nearestL.getLongitude()))
+                        .title("Nearest Aed")
+                        .snippet(markerInfo)
                         .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.aed)));//got from icon8 open source
+
+                //gmaps marker options
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+                    @Override
+                    public View getInfoWindow(Marker arg0) {
+                        return null;
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker) {
+
+                        LinearLayout info = new LinearLayout(getActivity());
+                        info.setOrientation(LinearLayout.VERTICAL);
+
+                        TextView title = new TextView(getActivity());
+                        title.setTextColor(Color.BLACK);
+                        title.setGravity(Gravity.CENTER);
+                        title.setTypeface(null, Typeface.BOLD);
+                        title.setText(marker.getTitle());
+
+                        TextView snippet = new TextView(getActivity());
+                        snippet.setTextColor(Color.GRAY);
+                        snippet.setText(marker.getSnippet());
+
+                        info.addView(title);
+                        info.addView(snippet);
+
+                        return info;
+                    }
+
+                });
             }
         });
 

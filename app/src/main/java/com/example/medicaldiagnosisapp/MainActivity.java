@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         locateButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent moveToLocate = new Intent(getApplicationContext(),LocateActivity.class);
+                Intent moveToLocate = new Intent(getApplicationContext(),LocateAedActivity.class);
                 startActivity(moveToLocate);
             }
         });

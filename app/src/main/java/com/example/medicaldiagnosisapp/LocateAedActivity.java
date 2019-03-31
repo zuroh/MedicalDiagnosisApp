@@ -25,20 +25,28 @@ public class LocateAedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locate_aed);
 
-        Button btn1 = (Button) findViewById(R.id.btn1);
-        Button btn2 = (Button) findViewById(R.id.btn2);
+        Button polyButton = (Button) findViewById(R.id.poly_button);
+        Button chasButton = (Button) findViewById(R.id.chas_button);
+        Button aedButton = (Button) findViewById(R.id.aed_button);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
+        polyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFragment(new AedFragment(), false, "one");
+                addFragment(new PolyFragment(), false, "one");
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
+        chasButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFragment(new AedFragment(), false, "one");
+                addFragment(new ChasFragment(), false, "two");
+            }
+        });
+
+        aedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFragment(new AedFragment(), false, "three");
             }
         });
 

@@ -11,17 +11,25 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/poly_button"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:id="@+id/btn1"
             android:layout_height="wrap_content"
-            android:text="Fragment 1 " />
+            android:layout_weight="1"
+            android:text="POLYCLINIC" />
+
         <Button
+            android:id="@+id/chas_button"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:id="@+id/btn2"
             android:layout_height="wrap_content"
-            android:text="Map Fragment" />
+            android:layout_weight="1"
+            android:text="CHAS CLINIC" />
+
+        <Button
+            android:id="@+id/aed_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="AED" />
 
     </LinearLayout>
 

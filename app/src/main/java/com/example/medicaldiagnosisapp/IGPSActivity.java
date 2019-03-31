@@ -1,4 +1,5 @@
 package com.example.medicaldiagnosisapp;
 
-public class IGPSActivity {
+public interface IGPSActivity {
+    void locationChanged(double longitude, double latitude);
 }

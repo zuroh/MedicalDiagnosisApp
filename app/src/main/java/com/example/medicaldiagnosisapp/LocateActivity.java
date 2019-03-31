@@ -111,10 +111,6 @@ public class LocateActivity extends AppCompatActivity implements OnMapReadyCallb
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
         }
-        mMapView = (MapView) findViewById(R.id.mapDisplay);
-        mMapView.onCreate(mapViewBundle);
-
-        mMapView.getMapAsync(this);
         //initGMaps(savedInstanceState);
     }
     /*
