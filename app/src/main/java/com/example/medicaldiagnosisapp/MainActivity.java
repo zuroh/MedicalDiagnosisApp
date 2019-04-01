@@ -6,16 +6,24 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import android.os.Handler;
+import org.json.JSONObject;
+import org.json.JSONException;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ChildEventListener;
 
@@ -24,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView funView;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
+    private DatabaseReference funFactsRef;
+    private JSONObject funFactJSON;
+    private Map<String, Integer> funFactTracker;
+
+    private Timer mTimer;
+    private TimerTask mTimerTask;
+    private Handler mHandler = new Handler();
+
+    private int conditionId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,78 +50,19 @@ public class MainActivity extends AppCompatActivity {
         funView = findViewById(R.id.funView);
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mDatabase.getReference();
+        funFactsRef = mDatabaseRef.child("funfacts");
+        funFactTracker = new HashMap<String, Integer>();
+        fillTracker();
 
-        DatabaseReference funFactsRef = mDatabaseRef.child("funfacts");
-
-        Query query = funFactsRef.orderByChild("id").equalTo(1);
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                String s = (String) dataSnapshot.child("text").getValue();
-                funView.setText(s);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        /*Toolbar Buttons Start Here
-
-        Button diagnoseButton = (Button) findViewById(R.id.diagnoseButton);
-        diagnoseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToDiagnose1 = new Intent(getApplicationContext(), DiagnoseActivityPage1.class);
-                startActivity(moveToDiagnose1);
-            }
-        });
-
-        ImageButton helpButton = findViewById(R.id.helpButton);
-        helpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToHelp = new Intent(getApplicationContext(), HelpActivity.class);
-                startActivity(moveToHelp);
-            }
-        });
-        ImageButton locateButton = findViewById(R.id.locateButton);
-        locateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToLocate = new Intent(getApplicationContext(), LocateActivity.class);
-                startActivity(moveToLocate);
-            }
-        });
-        ImageButton contactPageButton = findViewById(R.id.contactButton);
-        contactPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToContact = new Intent(getApplicationContext(), ContactActivity.class);
-                startActivity(moveToContact);
-            }
-        });
-        ImageButton infoButton = findViewById(R.id.infoButton);
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToInfo = new Intent(getApplicationContext(), InformationActivity.class);
-                startActivity(moveToInfo);
-            }
-        });
-        Toolbar Buttons End Here*/
+        String dataGovURL = "https://data.gov.sg/api/action/datastore_search?";
+        String funFactURL = dataGovURL + "resource_id=d40e7d15-cd97-4aa2-922d-403248b6bb33&q=%7B%22year%22%3A%222014%22%7D";
+        try {
+            funFactJSON = new WebAPIHandler().execute(funFactURL).get();
+        } catch (Exception e) {
+            Log.e("Data.gov.sg", "Exception: " + e.getMessage());
+        }
+      
+        startTimer();
 
         //Bottom Navigation Start//
 
@@ -144,4 +102,92 @@ public class MainActivity extends AppCompatActivity {
         //Bottom navigation end//
 
     }
+
+    public void startTimer(){
+
+        mTimer = new Timer();
+        mTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        String conditionString = "";
+                        try {
+                            JSONObject condition = funFactJSON.getJSONObject("result").getJSONArray("records").getJSONObject(conditionId);
+                            conditionString = condition.getString("disease_condition");
+                        } catch (Exception e) {
+                            Log.e("JSON", "Exception: " + e.getMessage());
+                        }
+
+                        displayFunFact(conditionString, funFactTracker.get(conditionString));
+                        conditionId++;
+                        conditionId %= 10;
+                    }
+                });
+            }
+        };
+
+        mTimer.schedule(mTimerTask, 1, 30000);
+    }
+
+    public void fillTracker(){
+        int initValue = 1;
+        funFactTracker.put("Cancer", initValue);
+        funFactTracker.put("Cancer count", 1);
+        funFactTracker.put("Ischaemic heart diseases", initValue);
+        funFactTracker.put("Ischaemic heart diseases count", 3);
+        funFactTracker.put("Intestinal infectious diseases", initValue);
+        funFactTracker.put("Intestinal infectious diseases count", 5);
+        funFactTracker.put("Pneumonia", initValue);
+        funFactTracker.put("Pneumonia count", 1);
+        funFactTracker.put("Other heart diseases", initValue);
+        funFactTracker.put("Other heart diseases count", 3);
+        funFactTracker.put("Infections of skin & subcutaneous tissue", initValue);
+        funFactTracker.put("Infections of skin & subcutaneous tissue count", 3);
+        funFactTracker.put("Accident, poisoning and violence", initValue);
+        funFactTracker.put("Accident, poisoning and violence count", 10);
+        funFactTracker.put("Obstetric complications affecting fetus and newborn", initValue);
+        funFactTracker.put("Obstetric complications affecting fetus and newborn count", 1);
+        funFactTracker.put("Diabetes mellitus", initValue);
+        funFactTracker.put("Diabetes mellitus count", 3);
+        funFactTracker.put("Cerebrovascular diseases (Including stroke)", initValue);
+        funFactTracker.put("Cerebrovascular diseases (Including stroke) count", 5);
+    }
+
+    public void displayFunFact(String tag, int id){
+        final int funFactId = id;
+
+        Query query = funFactsRef.orderByChild("tag").equalTo(tag).limitToFirst(funFactId);
+        query.addChildEventListener(new ChildEventListener() {
+            int funFactCount = 1;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                if(funFactCount==funFactId){
+                    String s = (String) dataSnapshot.child("text").getValue();
+                    funView.setText(s);
+                } else if(funFactCount<funFactId){
+                    funFactCount++;
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        int funFactCurrent = funFactTracker.get(tag+" count");
+        int newId = (id%funFactCurrent) + 1;
+        funFactTracker.put(tag, newId);
+    }
+  
 }
