@@ -40,7 +40,6 @@
         <activity
             android:name=".AdminActivity1"
             android:launchMode="singleTask" />
-        <activity android:name=".LoginActivity" />
         <activity android:name=".ChangeLanguageActivity" />
         <activity android:name=".HeatActivity" />
         <activity android:name=".PoisonActivity" />
