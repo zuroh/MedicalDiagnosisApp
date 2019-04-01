@@ -11,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.medicaldiagnosisapp.fragments.AedFragment;
+import com.example.medicaldiagnosisapp.fragments.ChasFragment;
+import com.example.medicaldiagnosisapp.fragments.PolyFragment;
+
 import static com.example.medicaldiagnosisapp.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 
 public class LocateActivity extends AppCompatActivity {
@@ -21,7 +25,7 @@ public class LocateActivity extends AppCompatActivity {
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_locate_aed);
+        setContentView(R.layout.activity_locate);
 
         Button polyButton = findViewById(R.id.poly_button);
         Button chasButton = findViewById(R.id.chas_button);
