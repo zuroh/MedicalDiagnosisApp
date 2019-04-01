@@ -52,14 +52,6 @@ public class LocateActivity extends AppCompatActivity {
             }
         });
 
-        Button tmpButton2 = (Button) findViewById(R.id.tmpButton2);
-        tmpButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToLocatAed = new Intent(getApplicationContext(), LocateAedActivity.class);
-                startActivity(moveToLocatAed);
-            }
-        });
         //end tmp
 
         //Toolbar Buttons Start Here

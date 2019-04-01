@@ -6,4 +6,59 @@
     <string name="Change_language">Change language</string>
     <string name="INfo">information</string>
     <string name="Locate_acticity">Locate!</string>
+    <string name="testing">THIS IS A TEST</string>
+    <string-array name="NonPhysicalGS">
+        <item>Dizzyness</item>
+        <item>Nausea</item>
+        <item>Confusion</item>
+        <item>Muscle Spasm</item>
+        <item>Drooling</item>
+        <item>Unconscious/Fainting</item>
+        <item>Shortness of Breath/Trouble Breathing</item>
+        <item>Vomitting</item>
+    </string-array>
+    <string-array name="PhysicalGS">
+        <item>Pain</item>
+        <item>Bleeding</item>
+        <item>Swelling</item>
+        <item>Shock</item>
+        <item>Painless Wounds</item>
+        <item>Abnormal Wound Color</item>
+        <item>Severe Bleeding</item>
+        <item>Trouble Breathing</item>
+        <item>Wounds cover more than 30 percent of body</item>
+        <item>Difficulty Moving Injured Area</item>
+    </string-array>
+    <string-array name="HeartAttackSS">
+        <item>Pain in Chest</item>
+        <item>Discomfort in Arm/Shoulder</item>
+        <item>Jaw/neck/back pain</item>
+        <item>Cold Sweat</item>
+    </string-array>
+    <string-array name="StrokeSS">
+        <item>Numbness/Weakness in body</item>
+        <item>Face Drooping</item>
+        <item>Sudden Severe Headache</item>
+        <item>Cannot Speak Coherently</item>
+    </string-array>
+    <string-array name="PoisonSS">
+        <item>Breath smells like chemicals</item>
+    </string-array>
+    <string-array name="HeatStrokeSS">
+        <item>Core Body Temperature feels hot</item>
+        <item>Lack of Sweat</item>
+    </string-array>
+    <string-array name="AnaphylaxisSS">
+        <item>Hives/Swelling</item>
+    </string-array>
+    <string-array name="BurnSS">
+        <item>Wounds smell charred</item>
+    </string-array>
+    <string-array name="MajorTraumaSS">
+        <item>Injury at vital organ/head</item>
+    </string-array>
+    <string-array name="BoneSS">
+        <item>Joint out of place</item>
+        <item>Bone pierced skin</item>
+    </string-array>
 </resources>
