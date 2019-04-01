@@ -58,5 +58,15 @@ public class StrokeActivity extends AppCompatActivity {
             }
         });
         //Toolbar Buttons End Here//
+
+        Button buttonStrokeCall =  findViewById(R.id.buttonStrokeCall);
+        buttonStrokeCall.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent moveToCall = new Intent(getApplicationContext(),ContactActivity.class);
+                startActivity(moveToCall);
+            }
+        });
+
     }
 }

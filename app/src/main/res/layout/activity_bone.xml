@@ -84,8 +84,8 @@
                 android:text="4. Treat them for shock: Help them get into a comfortable position, encourage them to rest, and reassure them. Cover them with a blanket or clothing to keep them warm."
                 android:textAppearance="@style/TextAppearance.AppCompat" />
 
-            <TextView
-                android:id="@+id/textView15"
+            <Button
+                android:id="@+id/buttonBoneCall"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -95,6 +95,7 @@
                 android:layout_marginRight="16dp"
                 android:background="@drawable/rounded_corner"
                 android:text="5. Get professional help: Call 911 or help them get to the emergency department for professional care."
+                android:gravity="left|center_vertical"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
 
 

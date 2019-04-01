@@ -58,5 +58,15 @@ public class PoisonActivity extends AppCompatActivity {
             }
         });
         //Toolbar Buttons End Here//
+
+        Button buttonPoisonLocate = (Button) findViewById(R.id.buttonPoisonLocate);
+        buttonPoisonLocate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToLocate = new Intent(getApplicationContext(), LocateActivity.class);
+                startActivity(moveToLocate);
+            }
+        });
+
     }
 }

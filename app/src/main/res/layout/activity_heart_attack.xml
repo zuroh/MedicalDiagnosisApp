@@ -125,8 +125,8 @@
         tools:layout_editor_absoluteX="53dp" />
 
 
-    <TextView
-        android:id="@+id/textView10"
+    <Button
+        android:id="@+id/buttonHeartCall"
         android:layout_width="330dp"
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
@@ -137,6 +137,7 @@
         android:layout_marginBottom="7dp"
         android:background="@drawable/rounded_corner"
         android:text="1. Call emergency number(995), don’t attempt to ignore/tough out the symptoms."
+        android:gravity="left|center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -192,8 +193,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-    <TextView
-        android:id="@+id/textView14"
+    <Button
+        android:id="@+id/buttonHeartLocate"
         android:layout_width="330dp"
         android:layout_height="39dp"
         android:layout_marginStart="16dp"
@@ -203,6 +204,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/rounded_corner"
         android:text="5. Source for an AED link to map"
+        android:gravity="left|center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

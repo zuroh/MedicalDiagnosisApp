@@ -91,7 +91,7 @@ public class PolyFragment extends Fragment implements IGPSActivity {
                 mMap.clear(); //clear old markers
 
                 //intantiate vars for searching
-                float distanceInMeters = 1000000;
+                float distanceInMeters = 2000;
                 int nodeIndex =0;
                 String markerInfo = "";
 

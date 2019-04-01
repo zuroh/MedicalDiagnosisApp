@@ -123,8 +123,8 @@
                 android:text="7. If vomiting and diarrhea lasts more than 24 hours, drink oral rehydration solution.  "
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-            <TextView
-                android:id="@+id/textView18"
+            <Button
+                android:id="@+id/buttonPoisonLocate"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -133,7 +133,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/rounded_corner"
-                android:text="8. Call doctor if:  Food poisoning may be from seafood or wild mushrooms.
+                android:gravity="left|center_vertical"
+                android:text="8. Find a doctor if:  Food poisoning may be from seafood or wild mushrooms.
 Sign of severe dehydration, such as dry mouth, decreased urination, dizziness, fatigue, or increased heart rate or breathing rate.
 Severe belly pain.
 Fever.
