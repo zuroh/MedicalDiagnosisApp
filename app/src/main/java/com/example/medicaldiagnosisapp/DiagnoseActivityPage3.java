@@ -2,8 +2,11 @@ package com.example.medicaldiagnosisapp;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,16 +15,45 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.medicaldiagnosisapp.ApiParser.GPS;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DiagnoseActivityPage3 extends AppCompatActivity {
+public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActivity {
+
+    private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
+    private GPS gps;
+
+    @Override
+    public void onResume() {
+        if (!gps.isRunning()) gps.resumeGPS();
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        // Disconnecting the client invalidates it.
+        Log.i("FieldLayout_StartAct", "onStop called. Disconnecting GPS client");
+        gps.stopGPS();
+        super.onStop();
+    }
+
+    @Override
+    public void locationChanged(double longitude, double latitude) {
+        Log.i("FieldLayout_StartAct", "locationChanged");
+        currentLocation.setLatitude(latitude);
+        currentLocation.setLongitude(longitude);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnose_page3);
+
+        //start the current location tracking
+        gps = new GPS(this, this);
 
         //get the array from previous activity
 
