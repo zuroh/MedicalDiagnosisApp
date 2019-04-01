@@ -5,7 +5,9 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient"
+    >
 
 
     <TextView
@@ -17,12 +19,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Heat Stroke"
+        android:fontFamily="@font/average_sans"
+        android:textColor="@color/design_default_color_primary_dark"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="30sp" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="600dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -130,6 +134,7 @@
 
     </ScrollView>
 
+    <!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -233,6 +238,24 @@
 
     </LinearLayout>
 
+    -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/btm_navigation_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="0dp"
+        app:menu="@menu/nav_menu">
+
+    </android.support.design.widget.BottomNavigationView>
+    </RelativeLayout>
 
 </LinearLayout>
 

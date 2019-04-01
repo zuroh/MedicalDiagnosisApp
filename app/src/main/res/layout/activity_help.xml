@@ -5,7 +5,8 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient">
 
 
     <TextView
@@ -19,7 +20,9 @@
         android:text="Help"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="30sp"
-        tools:text="@string/HomePage" />
+        tools:text="@string/HomePage"
+        android:fontFamily="@font/average_sans"
+        android:textColor="@color/design_default_color_primary_dark"/>
 
 
 
@@ -39,13 +42,17 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_alignTop="@id/changeLanguagePageButton"
                 android:layout_marginStart="130dp"
                 android:layout_marginLeft="130dp"
                 android:layout_marginTop="93dp"
                 android:layout_marginEnd="129dp"
                 android:layout_marginRight="129dp"
                 android:layout_marginBottom="104dp"
-                android:text="Administrator Mode" />
+                android:background="@color/colorPrimaryDark"
+                android:text="Administrator Mode"
+                android:textColor="@android:color/background_light" />
 
             <Button
                 android:id="@+id/changeLanguagePageButton"
@@ -56,16 +63,19 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
                 android:layout_marginStart="126dp"
                 android:layout_marginLeft="126dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="128dp"
                 android:layout_marginRight="128dp"
                 android:layout_marginBottom="190dp"
-                android:text="Change Language" />
+                android:background="@color/colorPrimaryDark"
+                android:text="Change Language"
+                android:textColor="@android:color/background_light" />
         </RelativeLayout>
 
-
+<!--
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -169,5 +179,26 @@
             app:srcCompat="@android:drawable/ic_menu_help" />
 
     </LinearLayout>
+
+    -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/btm_navigation_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="0dp"
+        app:menu="@menu/nav_menu">
+
+    </android.support.design.widget.BottomNavigationView>
+
+    </RelativeLayout>
+
 </LinearLayout>
 

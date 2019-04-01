@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -53,7 +55,7 @@ public class LocateActivity extends AppCompatActivity implements OnMapReadyCallb
         });
         //end tmp
 
-        //Toolbar Buttons Start Here
+        /*Toolbar Buttons Start Here
 
         Button diagnoseButton = (Button) findViewById(R.id.diagnoseButton);
         diagnoseButton.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +98,44 @@ public class LocateActivity extends AppCompatActivity implements OnMapReadyCallb
                 startActivity(moveToInfo);
             }
         });
-        //Toolbar Buttons End Here//
+        //Toolbar Buttons End Here*/
+
+        //Bottom Navigation Start//
+
+        BottomNavigationView btmNavMenu = (BottomNavigationView) findViewById(R.id.btm_navigation_menu);
+
+        btmNavMenu.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.nav_action_info:
+                                Intent moveToInfo = new Intent(getApplicationContext(), InformationActivity.class);
+                                startActivity(moveToInfo);
+                                break;
+                            case R.id.nav_action_call:
+                                Intent moveToContact = new Intent(getApplicationContext(), ContactActivity.class);
+                                startActivity(moveToContact);
+                                break;
+                            case R.id.nav_action_diagnose:
+                                Intent moveToDiagnose1 = new Intent(getApplicationContext(), DiagnoseActivityPage1.class);
+                                startActivity(moveToDiagnose1);
+                                break;
+                            case R.id.nav_action_locate:
+                                Intent moveToLocate = new Intent(getApplicationContext(), LocateActivity.class);
+                                startActivity(moveToLocate);
+                                break;
+                            case R.id.nav_action_help:
+                                Intent moveToHelp = new Intent(getApplicationContext(), HelpActivity.class);
+                                startActivity(moveToHelp);
+                                break;
+                        }
+                        return true;
+                    }
+
+                });
+
+        //Bottom navigation end//
 
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
