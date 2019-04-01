@@ -33,13 +33,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class PolyFragment extends Fragment implements IGPSActivity{
 
     private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
     private Location nearestL = new Location(LocationManager.GPS_PROVIDER);
+    private float shortestDistanceInMeters;
     private GPS gps;
 
     public PolyFragment() {
@@ -93,14 +93,9 @@ public class PolyFragment extends Fragment implements IGPSActivity{
                 int nodeIndex =0;
                 String markerInfo = "";
 
-                //get current loc first
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
-                        .title("Current Location"));
-
                 CameraPosition googlePlex = CameraPosition.builder()
                         .target(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()))
-                        .zoom(10)
+                        .zoom(13)
                         .bearing(0)
                         .tilt(45)
                         .build();
@@ -118,12 +113,18 @@ public class PolyFragment extends Fragment implements IGPSActivity{
                         if (tmpDist < distanceInMeters) {
                             distanceInMeters = tmpDist;
                             nearestL = tmpPolyL;
+
+                            shortestDistanceInMeters = distanceInMeters;
                             nodeIndex = i;
                         }
                     }
                     markerInfo = KmlParser.getMarkerInfoP(docP, nodeIndex);
                 } catch (Exception e) {e.printStackTrace();}
 
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
+                        .title("Current Location")
+                        .snippet("You are currently " + String.valueOf(shortestDistanceInMeters)+ " metres\naway from the nearest Polyclinic!"));
 
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(nearestL.getLatitude(), nearestL.getLongitude()))

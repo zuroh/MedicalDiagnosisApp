@@ -3,7 +3,6 @@ package com.example.medicaldiagnosisapp.ApiParser;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,6 +16,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class KmlParser {
 
+    /**
+     * Creates a DOM from a kml/xml file
+     * @param context required for accessing assets where the files are stored
+     * @param fileName required to know which kml/xml file to process
+     * @return doc Document returned for repeat usages
+     * @throws Exception In case context is null or no file with fillname is found
+     */
     public static Document createDocumentFromKml(Context context, String fileName) throws Exception{
         InputStream is = context.getAssets().open(fileName);
 
@@ -30,19 +36,6 @@ public class KmlParser {
         return doc;
     }
 
-    public static Document createDocumentFromKmlTmp (Context context, String fileName) throws Exception{
-        InputStream is = context.getAssets().open(fileName);
-
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc1 = dBuilder.parse(is);
-
-        Element element = doc1.getDocumentElement();
-        element.normalize();
-
-        return doc1;
-    }
-
     public static Location getCoordinates (Document doc, int index) {
         NodeList nListC = doc.getElementsByTagName("Point");
         Node nodeC = nListC.item(index);
@@ -54,6 +47,7 @@ public class KmlParser {
         loc.setLongitude(lon); loc.setLatitude(lat);
         return loc;
     }
+
     public static String getMarkerInfoName (Document doc, int KMLIndex, int infoIndex) {
         //get the right KML_id parent node
         NodeList nListC = doc.getElementsByTagName("SchemaData");

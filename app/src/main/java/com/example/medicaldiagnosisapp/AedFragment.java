@@ -38,6 +38,7 @@ public class AedFragment extends Fragment implements IGPSActivity{
 
     private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
     private Location nearestL = new Location(LocationManager.GPS_PROVIDER);
+    private float shortestDistanceInMeters;
     private GPS gps;
 
     public AedFragment() {
@@ -91,14 +92,9 @@ public class AedFragment extends Fragment implements IGPSActivity{
                 int nodeIndex =0;
                 String markerInfo = "";
 
-                //get current loc first
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
-                        .title("Current Location"));
-
                 CameraPosition googlePlex = CameraPosition.builder()
                         .target(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()))
-                        .zoom(10)
+                        .zoom(17)
                         .bearing(0)
                         .tilt(45)
                         .build();
@@ -107,14 +103,16 @@ public class AedFragment extends Fragment implements IGPSActivity{
 
                 //find nearest aed
                 try {
-                    Document doc = KmlParser.createDocumentFromKml(getActivity(), "aed.kml");
+                    Document doc = KmlParser.createDocumentFromKml(getActivity(), "aedVerified.kml");
                     int iterations = KmlParser.getNoNodes(doc, "Point");
-                    for (int i = 0; i < 2; i++) { //replace with iterations
+                    for (int i = 0; i < iterations; i++) { //replace with iterations
                         Location tmpAedL = KmlParser.getCoordinates(doc, i);
                         float tmpDist = currentLocation.distanceTo(tmpAedL);
                         if (tmpDist < distanceInMeters) {
                             distanceInMeters = tmpDist;
                             nearestL = tmpAedL;
+
+                            shortestDistanceInMeters = distanceInMeters;
                             nodeIndex = i;
                         }
                     }
@@ -124,6 +122,11 @@ public class AedFragment extends Fragment implements IGPSActivity{
                     }
 
                 } catch (Exception e) {e.printStackTrace();}
+
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
+                        .title("Current Location")
+                        .snippet("You are currently " + String.valueOf(shortestDistanceInMeters)+ " metres\naway from the nearest AED!"));
 
 
                 mMap.addMarker(new MarkerOptions()
@@ -165,7 +168,6 @@ public class AedFragment extends Fragment implements IGPSActivity{
                 });
             }
         });
-
 
         return rootView;
     }

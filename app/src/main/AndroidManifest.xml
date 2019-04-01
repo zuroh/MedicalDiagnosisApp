@@ -25,7 +25,7 @@
             android:name="com.google.android.actions"
             android:resource="@menu/admin_navigation_items" />
 
-        <activity android:name=".LocateAedActivity" />
+        <activity android:name=".LocateActivity" />
         <activity android:name=".AdminViewActivity" />
         <activity android:name=".ApiJsonTmp"></activity>
         <activity
@@ -53,7 +53,6 @@
         <activity android:name=".FinalDiagnosisActivity" />
         <activity android:name=".DiagnoseActivityPage3" />
         <activity android:name=".HelpActivity" />
-        <activity android:name=".LocateActivity" />
         <activity android:name=".InformationActivity" />
         <activity android:name=".ContactActivity" />
         <activity android:name=".DiagnoseActivityPage2" />

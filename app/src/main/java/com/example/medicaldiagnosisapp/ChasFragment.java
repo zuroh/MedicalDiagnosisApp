@@ -38,6 +38,7 @@ public class ChasFragment extends Fragment implements IGPSActivity{
 
     private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
     private Location nearestL = new Location(LocationManager.GPS_PROVIDER);
+    private float shortestDistanceInMeters;
     private GPS gps;
 
     public ChasFragment() {
@@ -91,14 +92,9 @@ public class ChasFragment extends Fragment implements IGPSActivity{
                 int nodeIndex =0;
                 String markerInfo = "";
 
-                //get current loc first
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
-                        .title("Current Location"));
-
                 CameraPosition googlePlex = CameraPosition.builder()
                         .target(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()))
-                        .zoom(10)
+                        .zoom(15)
                         .bearing(0)
                         .tilt(45)
                         .build();
@@ -109,12 +105,14 @@ public class ChasFragment extends Fragment implements IGPSActivity{
                 try {
                     Document doc = KmlParser.createDocumentFromKml(getActivity(), "chas.kml");
                     int iterations = KmlParser.getNoNodes(doc, "Point");
-                    for (int i = 0; i < 2; i++) { //replace with iterations
+                    for (int i = 0; i < iterations; i++) { //replace with iterations
                         Location tmpChasL = KmlParser.getCoordinates(doc, i);
                         float tmpDist = currentLocation.distanceTo(tmpChasL);
                         if (tmpDist < distanceInMeters) {
                             distanceInMeters = tmpDist;
                             nearestL = tmpChasL;
+
+                            shortestDistanceInMeters = distanceInMeters;
                             nodeIndex = i;
                         }
                     }
@@ -125,10 +123,14 @@ public class ChasFragment extends Fragment implements IGPSActivity{
 
                 } catch (Exception e) {e.printStackTrace();}
 
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
+                        .title("Current Location")
+                        .snippet("You are currently " + String.valueOf(shortestDistanceInMeters)+ " metres\naway from the nearest Chas Clinic!"));
 
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(nearestL.getLatitude(), nearestL.getLongitude()))
-                        .title("Nearest Chas")
+                        .title("Nearest Chas Clinic")
                         .snippet(markerInfo)
                         .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.aed)));//got from icon8 open source
 
@@ -155,6 +157,7 @@ public class ChasFragment extends Fragment implements IGPSActivity{
                         TextView snippet = new TextView(getActivity());
                         snippet.setTextColor(Color.GRAY);
                         snippet.setText(marker.getSnippet());
+                        snippet.setGravity(Gravity.CENTER);
 
                         info.addView(title);
                         info.addView(snippet);
