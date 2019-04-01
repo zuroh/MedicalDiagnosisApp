@@ -1,118 +1,102 @@
 package com.example.medicaldiagnosisapp;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import static com.example.medicaldiagnosisapp.Constants.ERROR_DIALOG_REQUEST;
 import static com.example.medicaldiagnosisapp.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
-import static com.example.medicaldiagnosisapp.Constants.PERMISSIONS_REQUEST_ENABLE_GPS;
-import static com.example.medicaldiagnosisapp.Constants.MAPVIEW_BUNDLE_KEY;
 
 public class LocateActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
-    private boolean mLocationPermissionGranted = false;
 
-    private MapView mMapView;
-
-    @Override
+    /**
+     * On Activity creation, restores its prior information if available
+     * @param savedInstanceState contains previous instance if available
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_locate);
+        setContentView(R.layout.activity_locate_aed);
 
-        //tmp
-        Button tmpButton = (Button) findViewById(R.id.tmpButton);
-        tmpButton.setOnClickListener(new View.OnClickListener() {
+        Button polyButton = findViewById(R.id.poly_button);
+        Button chasButton = findViewById(R.id.chas_button);
+        Button aedButton = findViewById(R.id.aed_button);
+
+        /**
+         * Check for user button click
+         * Activates PolyFragment
+         */
+        polyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveToApi = new Intent(getApplicationContext(), ApiJsonTmp.class);
-                startActivity(moveToApi);
-            }
-        });
-
-        //end tmp
-
-        //Toolbar Buttons Start Here
-
-        Button diagnoseButton = (Button) findViewById(R.id.diagnoseButton);
-        diagnoseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToDiagnose1 = new Intent(getApplicationContext(), DiagnoseActivityPage1.class);
-                startActivity(moveToDiagnose1);
+                addFragment(new PolyFragment(), false, "poly");
             }
         });
 
-        ImageButton helpButton =  findViewById(R.id.helpButton);
-        helpButton.setOnClickListener(new View.OnClickListener(){
+        /**
+         * Check for user button click
+         * Activates ChasFragment
+         */
+        chasButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveToHelp = new Intent(getApplicationContext(),HelpActivity.class);
-                startActivity(moveToHelp);
+                addFragment(new ChasFragment(), false, "chas");
             }
         });
-        ImageButton locateButton =  findViewById(R.id.locateButton);
-        locateButton.setOnClickListener(new View.OnClickListener(){
+
+        /**
+         * Check for user button click
+         * Activates AedFragment
+         */
+        aedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveToLocate = new Intent(getApplicationContext(),LocateActivity.class);
-                startActivity(moveToLocate);
+                addFragment(new AedFragment(), false, "aed");
             }
         });
-        ImageButton contactPageButton = findViewById(R.id.contactButton);
-        contactPageButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent moveToContact = new Intent(getApplicationContext(),ContactActivity.class);
-                startActivity(moveToContact);
-            }
-        });
-        ImageButton infoButton =  findViewById(R.id.infoButton);
-        infoButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent moveToInfo = new Intent(getApplicationContext(),InformationActivity.class);
-                startActivity(moveToInfo);
-            }
-        });
-        //Toolbar Buttons End Here//
+
+        /**
+         * Check for Location permissions
+         * Request if not available
+         */
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            return;
+        }
 
     }
-    /*
-    private void initGMaps(Bundle savedInstanceState) {
 
-        // *** IMPORTANT ***
-        // MapView requires that the Bundle you pass contain _ONLY_ MapView SDK
-        // objects or sub-Bundles.
-        Bundle mapViewBundle = null;
-        if (savedInstanceState != null) {
-            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
+    /**
+     * Manages the fragments that occupy a container in the layout
+     * @param fragment the fragment that will be occupying the container
+     * @param addToBackStack if an existing fragment is in the container, add its tag
+     *                       to stack for recall later
+     * @param tag identity of the fragments. prevent multiple instances of same fragment
+     */
+    public void addFragment(Fragment fragment, boolean addToBackStack, String tag) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+
+        if (addToBackStack) {
+            ft.addToBackStack(tag);
         }
-        mMapView.onCreate(mapViewBundle);
-
-        mMapView.getMapAsync(this);
-    }*/
-
+        ft.replace(R.id.container_frame_back, fragment, tag);
+        ft.commitAllowingStateLoss();
+    }
 }
