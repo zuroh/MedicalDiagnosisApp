@@ -26,13 +26,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <buttonHeatCallLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView10"
+            <Button
+                android:id="@+id/buttonHeatCall"
                 android:layout_width="330dp"
                 android:layout_height="37dp"
                 android:layout_marginStart="16dp"
@@ -43,6 +43,7 @@
                 android:layout_marginBottom="7dp"
                 android:background="@drawable/rounded_corner"
                 android:text="1. Call emergency number(995)"
+                android:gravity="left|center_vertical"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
 
             <TextView
@@ -125,7 +126,7 @@
 
 
 
-        </LinearLayout>
+        </buttonHeatCallLinearLayout>
 
 
     </ScrollView>

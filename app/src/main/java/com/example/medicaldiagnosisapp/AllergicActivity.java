@@ -58,5 +58,14 @@ public class AllergicActivity extends AppCompatActivity {
             }
         });
         //Toolbar Buttons End Here//
+
+        Button buttonAllergicCall = (Button) findViewById(R.id.buttonAllergicCall);
+        buttonAllergicCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToCall = new Intent(getApplicationContext(), ContactActivity.class);
+                startActivity(moveToCall);
+            }
+        });
     }
 }

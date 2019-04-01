@@ -1,9 +1,13 @@
 package com.example.medicaldiagnosisapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,16 +16,56 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.medicaldiagnosisapp.ApiParser.GPS;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DiagnoseActivityPage2 extends AppCompatActivity {
+public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActivity {
+
+    private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
+    private GPS gps;
+
+    /**
+     * When the activity resumes, resume tracking of current location
+     */
+    @Override
+    public void onResume() {
+        if (!gps.isRunning()) gps.resumeGPS();
+        super.onResume();
+    }
+
+    /**
+     * When the activity stops, stop tracking of current location
+     */
+    @Override
+    public void onStop() {
+        // Disconnecting the client invalidates it.
+        Log.i("FieldLayout_StartAct", "onStop called. Disconnecting GPS client");
+        gps.stopGPS();
+        super.onStop();
+    }
+
+    /**
+     * Updates the current location if it's changed
+     * @param longitude
+     * @param latitude used to contains the long lat of the current location
+     */
+    @Override
+    public void locationChanged(double longitude, double latitude) {
+        Log.i("FieldLayout_StartAct", "locationChanged");
+        currentLocation.setLatitude(latitude);
+        currentLocation.setLongitude(longitude);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnose_page2);
+
+        //start the current location tracking
+        gps = new GPS(this, this);
 
         //get the array from previous activity
 
@@ -432,6 +476,8 @@ public class DiagnoseActivityPage2 extends AppCompatActivity {
                 Date c = Calendar.getInstance().getTime();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                 String date = df.format(c);
+                double longitude = currentLocation.getLongitude();
+                double latitude = currentLocation.getLatitude();
 
                 int max = diagnoseArr[3];
                 int index = 3;
@@ -444,35 +490,35 @@ public class DiagnoseActivityPage2 extends AppCompatActivity {
                 }
                 switch(index){
                     case(3):
-                        DataLog DataLog1 = new DataLog(date,0,0,"Heart Attack");
+                        DataLog DataLog1 = new DataLog(date,latitude,longitude,"Heart Attack");
                         startActivity(moveToHeart);
                         break;
                     case(4):
-                        DataLog DataLog2 = new DataLog(date,0,0,"Stroke");
+                        DataLog DataLog2 = new DataLog(date,latitude,longitude,"Stroke");
                         startActivity(moveToStroke);
                         break;
                     case(5):
-                        DataLog DataLog3 = new DataLog(date,0,0,"Poison");
+                        DataLog DataLog3 = new DataLog(date,latitude,longitude,"Poison");
                         startActivity(moveToPoison);
                         break;
                     case(6):
-                        DataLog DataLog4 = new DataLog(date,0,0,"Heat Stroke");
+                        DataLog DataLog4 = new DataLog(date,latitude,longitude,"Heat Stroke");
                         startActivity(moveToHeat);
                         break;
                     case(7):
-                        DataLog DataLog5 = new DataLog(date,0,0,"Anaphylaxis");
+                        DataLog DataLog5 = new DataLog(date,latitude,longitude,"Anaphylaxis");
                         startActivity(moveToAllergy);
                         break;
                     case(8):
-                        DataLog DataLog6 = new DataLog(date,0,0,"Burn");
+                        DataLog DataLog6 = new DataLog(date,latitude,longitude,"Burn");
                         startActivity(moveToBurn);
                         break;
                     case(9):
-                        DataLog DataLog7 = new DataLog(date,0,0,"Major Trauma");
+                        DataLog DataLog7 = new DataLog(date,latitude,longitude,"Major Trauma");
                         startActivity(moveToTrauma);
                         break;
                     case(10):
-                        DataLog DataLog8 = new DataLog(date,0,0,"Bone");
+                        DataLog DataLog8 = new DataLog(date,latitude,longitude,"Bone");
                         startActivity(moveToBone);
                         break;
 
@@ -480,4 +526,5 @@ public class DiagnoseActivityPage2 extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -58,5 +58,24 @@ public class HeartAttackActivity extends AppCompatActivity {
             }
         });
         //Toolbar Buttons End Here//
+
+        Button buttonHeartCall = (Button) findViewById(R.id.buttonHeartCall);
+        buttonHeartCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToCall = new Intent(getApplicationContext(), ContactActivity.class);
+                startActivity(moveToCall);
+            }
+        });
+
+        Button buttonHeartLocate = (Button) findViewById(R.id.buttonHeartLocate);
+        buttonHeartLocate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToLocate = new Intent(getApplicationContext(), LocateActivity.class);
+                startActivity(moveToLocate);
+            }
+        });
+
     }
 }

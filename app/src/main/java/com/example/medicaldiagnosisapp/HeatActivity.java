@@ -58,5 +58,15 @@ public class HeatActivity extends AppCompatActivity {
             }
         });
         //Toolbar Buttons End Here//
+
+        Button buttonHeatCall = (Button) findViewById(R.id.buttonHeatCall);
+        buttonHeatCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToCall = new Intent(getApplicationContext(), ContactActivity.class);
+                startActivity(moveToCall);
+            }
+        });
+
     }
 }

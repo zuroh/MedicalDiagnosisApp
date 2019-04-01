@@ -58,5 +58,15 @@ public class BoneActivity extends AppCompatActivity {
             }
         });
         //Toolbar Buttons End Here//
+
+        Button buttonBoneCall = (Button) findViewById(R.id.buttonBoneCall);
+        buttonBoneCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToCall = new Intent(getApplicationContext(), ContactActivity.class);
+                startActivity(moveToCall);
+            }
+        });
+
     }
 }

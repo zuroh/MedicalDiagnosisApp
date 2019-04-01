@@ -58,5 +58,15 @@ public class BurnActivity extends AppCompatActivity {
             }
         });
         //Toolbar Buttons End Here//
+
+        Button buttonBurnCall =  findViewById(R.id.buttonBurnCall);
+        buttonBurnCall.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent moveToCall = new Intent(getApplicationContext(),ContactActivity.class);
+                startActivity(moveToCall);
+            }
+        });
+
     }
 }
