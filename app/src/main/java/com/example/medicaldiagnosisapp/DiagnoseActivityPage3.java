@@ -12,6 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class DiagnoseActivityPage3 extends AppCompatActivity {
 
     @Override
@@ -807,6 +811,13 @@ public class DiagnoseActivityPage3 extends AppCompatActivity {
                 Intent moveToTrauma = new Intent(getApplicationContext(),MajorTraumaActivity.class);
                 Intent moveToBone = new Intent(getApplicationContext(),BoneActivity.class);
 
+
+                //get current date
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+                String date = df.format(c);
+
+
                 int max = diagnoseArr[3];
                 int index = 3;
 
@@ -818,27 +829,35 @@ public class DiagnoseActivityPage3 extends AppCompatActivity {
                 }
                 switch(index){
                     case(3):
+                        DataLog DataLog1 = new DataLog(date,0,0,"Heart Attack");
                         startActivity(moveToHeart);
                         break;
                     case(4):
+                        DataLog DataLog2 = new DataLog(date,0,0,"Stroke");
                         startActivity(moveToStroke);
                         break;
                     case(5):
+                        DataLog DataLog3 = new DataLog(date,0,0,"Poison");
                         startActivity(moveToPoison);
                         break;
                     case(6):
+                        DataLog DataLog4 = new DataLog(date,0,0,"Heat Stroke");
                         startActivity(moveToHeat);
                         break;
                     case(7):
+                        DataLog DataLog5 = new DataLog(date,0,0,"Anaphylaxis");
                         startActivity(moveToAllergy);
                         break;
                     case(8):
+                        DataLog DataLog6 = new DataLog(date,0,0,"Burn");
                         startActivity(moveToBurn);
                         break;
                     case(9):
+                        DataLog DataLog7 = new DataLog(date,0,0,"Major Trauma");
                         startActivity(moveToTrauma);
                         break;
                     case(10):
+                        DataLog DataLog8 = new DataLog(date,0,0,"Bone");
                         startActivity(moveToBone);
                         break;
 
