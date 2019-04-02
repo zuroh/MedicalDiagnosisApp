@@ -1,6 +1,7 @@
 package com.example.medicaldiagnosisapp;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -53,14 +54,23 @@ public class LocateActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * Check for user button click
-         * Activates AedFragment
-         */
+//        /**
+//         * Check for user button click
+//         * Activates AedFragment
+//         */
+//        aedButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                addFragment(new AedFragment(), false, "aed");
+//            }
+//        });
+
+        aedButton = (Button) findViewById(R.id.aed_button);
         aedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFragment(new AedFragment(), false, "aed");
+                Intent moveToAed = new Intent(getApplicationContext(), AedActivity.class);
+                startActivity(moveToAed);
             }
         });
 

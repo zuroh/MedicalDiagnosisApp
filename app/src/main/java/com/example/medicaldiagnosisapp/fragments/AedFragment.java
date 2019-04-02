@@ -18,7 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.medicaldiagnosisapp.ApiParser.AedModel;
 import com.example.medicaldiagnosisapp.ApiParser.GPS;
 import com.example.medicaldiagnosisapp.ApiParser.KmlParser;
 import com.example.medicaldiagnosisapp.IGPSActivity;
@@ -33,9 +35,19 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.w3c.dom.Document;
 
+import com.example.medicaldiagnosisapp.ApiParser.JsonParse;
+
+import java.io.IOException;
+import java.util.ArrayList;
+//not being used atm.
 public class AedFragment extends Fragment implements IGPSActivity {
 
     private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
@@ -104,7 +116,7 @@ public class AedFragment extends Fragment implements IGPSActivity {
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
 
                 //find nearest aed
-                try {
+                /*try {
                     Document doc = KmlParser.createDocumentFromKml(getActivity(), "aedVerified.kml");
                     int iterations = KmlParser.getNoNodes(doc, "Point");
                     for (int i = 0; i < iterations; i++) { //replace with iterations
@@ -123,7 +135,22 @@ public class AedFragment extends Fragment implements IGPSActivity {
                         markerInfo += KmlParser.getMarkerInfoValue(doc, nodeIndex, j) + "\n";
                     }
 
-                } catch (Exception e) {e.printStackTrace();}
+                } catch (Exception e) {e.printStackTrace();}*/
+
+                try {
+                    String myJson= (String) JsonParse.inputStreamToString(getContext().getAssets().open("aedVerifiedMini1.txt"));
+                    AedModel aedModel = new Gson().fromJson(myJson, AedModel.class);
+                    Toast toast1 = Toast.makeText(getActivity(), aedModel.aeds.get(0).name, Toast.LENGTH_SHORT);
+                    toast1.show();
+
+                    double longi = currentLocation.getLongitude();
+                    binarySearch(aedModel, 0, aedModel.aeds.size(), currentLocation.getLongitude());
+
+                    //parse(myJson);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
@@ -182,5 +209,53 @@ public class AedFragment extends Fragment implements IGPSActivity {
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
+
+    public int binarySearch(AedModel aedModel, int l, int r, double x)
+    {
+        if (r >= l) {
+            int mid = l + (r - l) / 2;
+
+            // If the element is present at the
+            // middle itself
+            double tmpLong = getLongSerial(aedModel,mid);
+            if (tmpLong == x)
+                return mid;
+
+            // If element is smaller than mid, then
+            // it can only be present in left subarray
+            if (tmpLong > x)
+                return binarySearch(aedModel, l, mid - 1, x);
+
+            // Else the element can only be present
+            // in right subarray
+            return binarySearch(aedModel, mid + 1, r, x);
+        }
+
+        // We reach here when element is not present
+        // in array
+        return -1;
+    }
+
+    public double getLongSerial (AedModel aedModel, int index) {
+        String stringCoord = aedModel.aeds.get(index).coord;
+
+        String [] parts = stringCoord.split(",");
+        double lon = Double.valueOf(parts[0]);
+
+        return lon;
+    }
+
+/*    public String parse (String jsonLine) {
+        JsonArray jarray = (JsonArray) new JsonParser().parse(jsonLine);
+
+        String tmp = String.valueOf(((JsonObject)jarray.get(0)).get("coordinates"));
+        String [] parts = tmp.split(",");
+        aed.set(Double.valueOf(parts[0]));
+        double lat = Double.valueOf(parts[1]);
+        Location loc = new Location(LocationManager.GPS_PROVIDER);
+        loc.setLongitude(lon); loc.setLatitude(lat);
+
+        return String a;
+    }*/
 
 }

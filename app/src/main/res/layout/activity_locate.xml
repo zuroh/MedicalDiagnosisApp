@@ -40,7 +40,6 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
-
     </LinearLayout>
 
 </LinearLayout>
