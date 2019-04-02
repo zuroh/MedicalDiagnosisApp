@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.medicaldiagnosisapp.ApiParser.GPS;
 
@@ -491,34 +492,75 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                 switch(index){
                     case(3):
                         DataLog DataLog1 = new DataLog(date,latitude,longitude,"Heart Attack");
+                        Toast toast1 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast1.show();
+
                         startActivity(moveToHeart);
                         break;
                     case(4):
                         DataLog DataLog2 = new DataLog(date,latitude,longitude,"Stroke");
+                        Toast toast2 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast2.show();
                         startActivity(moveToStroke);
                         break;
                     case(5):
                         DataLog DataLog3 = new DataLog(date,latitude,longitude,"Poison");
+                        Toast toast3 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast3.show();
                         startActivity(moveToPoison);
                         break;
                     case(6):
                         DataLog DataLog4 = new DataLog(date,latitude,longitude,"Heat Stroke");
+                        Toast toast4 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast4.show();
                         startActivity(moveToHeat);
                         break;
                     case(7):
                         DataLog DataLog5 = new DataLog(date,latitude,longitude,"Anaphylaxis");
+                        Toast toast5 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast5.show();
                         startActivity(moveToAllergy);
                         break;
                     case(8):
                         DataLog DataLog6 = new DataLog(date,latitude,longitude,"Burn");
+                        Toast toast6 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast6.show();
                         startActivity(moveToBurn);
                         break;
                     case(9):
                         DataLog DataLog7 = new DataLog(date,latitude,longitude,"Major Trauma");
+                        Toast toast7 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast7.show();
                         startActivity(moveToTrauma);
                         break;
                     case(10):
                         DataLog DataLog8 = new DataLog(date,latitude,longitude,"Bone");
+                        Toast toast8 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast8.show();
                         startActivity(moveToBone);
                         break;
 
