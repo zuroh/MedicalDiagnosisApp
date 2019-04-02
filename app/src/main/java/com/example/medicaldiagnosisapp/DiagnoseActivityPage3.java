@@ -864,7 +864,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                 switch(index){
                     case(3):
                         DataLog DataLog1 = new DataLog(date,latitude,longitude,"Heart Attack");
-                        new FirebaseDataLog().execute(DataLog1);
+                        new DataLogTask().execute(DataLog1);
 
                         Toast toast1 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
@@ -876,7 +876,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                         break;
                     case(4):
                         DataLog DataLog2 = new DataLog(date,latitude,longitude,"Stroke");
-                        new FirebaseDataLog().execute(DataLog2);
+                        new DataLogTask().execute(DataLog2);
 
                         Toast toast2 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
@@ -887,7 +887,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                         break;
                     case(5):
                         DataLog DataLog3 = new DataLog(date,latitude,longitude,"Poison");
-                        new FirebaseDataLog().execute(DataLog3);
+                        new DataLogTask().execute(DataLog3);
 
                         Toast toast3 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
@@ -898,7 +898,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                         break;
                     case(6):
                         DataLog DataLog4 = new DataLog(date,latitude,longitude,"Heat Stroke");
-                        new FirebaseDataLog().execute(DataLog4);
+                        new DataLogTask().execute(DataLog4);
 
                         Toast toast4 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
@@ -909,7 +909,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                         break;
                     case(7):
                         DataLog DataLog5 = new DataLog(date,latitude,longitude,"Anaphylaxis");
-                        new FirebaseDataLog().execute(DataLog5);
+                        new DataLogTask().execute(DataLog5);
 
                         Toast toast5 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
@@ -920,7 +920,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                         break;
                     case(8):
                         DataLog DataLog6 = new DataLog(date,latitude,longitude,"Burns");
-                        new FirebaseDataLog().execute(DataLog6);
+                        new DataLogTask().execute(DataLog6);
 
                         Toast toast6 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
@@ -931,7 +931,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                         break;
                     case(9):
                         DataLog DataLog7 = new DataLog(date,latitude,longitude,"Major Trauma");
-                        new FirebaseDataLog().execute(DataLog7);
+                        new DataLogTask().execute(DataLog7);
 
                         Toast toast7 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
@@ -942,7 +942,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                         break;
                     case(10):
                         DataLog DataLog8 = new DataLog(date,latitude,longitude,"Bone Fracture/Dislocation");
-                        new FirebaseDataLog().execute(DataLog8);
+                        new DataLogTask().execute(DataLog8);
 
                         Toast toast8 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",

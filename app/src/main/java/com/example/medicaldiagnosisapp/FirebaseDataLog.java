@@ -1,29 +1,24 @@
 package com.example.medicaldiagnosisapp;
 
 import android.util.Log;
-import android.os.AsyncTask;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FirebaseDataLog extends AsyncTask<DataLog, Void, Void> implements DBLoggingInterface {
+public class FirebaseDataLog implements DBLoggingInterface {
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
     private DatabaseReference logRef;
 
-    @Override
-    protected Void doInBackground(DataLog... log){
+    public FirebaseDataLog(){
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mDatabase.getReference();
         logRef = mDatabaseRef.child("logs");
-
-        updateDB(log[0]);
-
-        return null;
     }
+
     @Override
     public void updateDB(DataLog log){
 
