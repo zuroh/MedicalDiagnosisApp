@@ -94,7 +94,6 @@ public class AedActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.setMinZoomPreference(12.0f);
         mMap.setMaxZoomPreference(20.0f);
 
-
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(1.35, 103.8), 12));
 
         LatLngBounds SINGAPORE = new LatLngBounds(
@@ -200,7 +199,7 @@ public class AedActivity extends AppCompatActivity implements OnMapReadyCallback
         @Override
         public View getInfoContents(Marker marker) {
 
-            TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.aed));
+            TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.emergency_service));
             tvTitle.setText(marker.getTitle());
             TextView tvSnippet = ((TextView) myContentsView.findViewById(R.id.snippet));
             tvSnippet.setText(marker.getSnippet());

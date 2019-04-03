@@ -2,8 +2,11 @@ package com.example.medicaldiagnosisapp;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -11,33 +14,67 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class DiagnoseActivityPage3 extends AppCompatActivity {
+import com.example.medicaldiagnosisapp.ApiParser.GPS;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActivity {
+
+    private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
+    private GPS gps;
+
+    @Override
+    public void onResume() {
+        if (!gps.isRunning()) gps.resumeGPS();
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        // Disconnecting the client invalidates it.
+        Log.i("FieldLayout_StartAct", "onStop called. Disconnecting GPS client");
+        gps.stopGPS();
+        super.onStop();
+    }
+
+    @Override
+    public void locationChanged(double longitude, double latitude) {
+        Log.i("FieldLayout_StartAct", "locationChanged");
+        currentLocation.setLatitude(latitude);
+        currentLocation.setLongitude(longitude);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnose_page3);
 
+        //start the current location tracking
+        gps = new GPS(this, this);
+
         //get the array from previous activity
 
         Intent getfrompage2 = getIntent();
         Bundle extras = getIntent().getExtras();
-        final int [] diagnoseArr = extras.getIntArray("diagnoseArr");
+        final double [] diagnoseArr = extras.getDoubleArray("diagnoseArr");
 
         //testing array values output
         TextView testArray2 = (TextView) findViewById(R.id.testarray2);
         int arraylength = diagnoseArr.length;
 
         for(int i=0;i<arraylength;i++){
-            String temp = Integer.toString(diagnoseArr[i]);
+            String temp = Double.toString(diagnoseArr[i]);
             testArray2.append(temp);
         }
 
         //Check for top 3 conditions based on array.
-        int first=diagnoseArr[3];
-        int second=diagnoseArr[3];
-        int third=diagnoseArr[3];
+        double first=diagnoseArr[3];
+        double second=diagnoseArr[3];
+        double third=diagnoseArr[3];
         int firstindex=0;
         int secondindex=0;
         int thirdindex=0;
@@ -47,7 +84,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity {
                 firstindex=j;
             }
         }
-        int tempfirst = diagnoseArr[firstindex];
+        double tempfirst = diagnoseArr[firstindex];
         diagnoseArr[firstindex]=0;
         for(int j=3;j<10;j++){
             if(second<diagnoseArr[j]) {
@@ -55,7 +92,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity {
                 secondindex=j;
             }
         }
-        int tempsecond = diagnoseArr[secondindex];
+        double tempsecond = diagnoseArr[secondindex];
         diagnoseArr[secondindex] = 0;
         for(int j=3;j<10;j++){
             if(third<diagnoseArr[j]) {
@@ -807,7 +844,15 @@ public class DiagnoseActivityPage3 extends AppCompatActivity {
                 Intent moveToTrauma = new Intent(getApplicationContext(),MajorTraumaActivity.class);
                 Intent moveToBone = new Intent(getApplicationContext(),BoneActivity.class);
 
-                int max = diagnoseArr[3];
+
+                //get current date
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+                String date = df.format(c);
+                double longitude = currentLocation.getLongitude();
+                double latitude = currentLocation.getLatitude();
+
+                double max = diagnoseArr[3];
                 int index = 3;
 
                 for(int j=3;j<10;j++){
@@ -818,27 +863,92 @@ public class DiagnoseActivityPage3 extends AppCompatActivity {
                 }
                 switch(index){
                     case(3):
+                        DataLog DataLog1 = new DataLog(date,latitude,longitude,"Heart Attack");
+                        new DataLogTask().execute(DataLog1);
+
+                        Toast toast1 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast1.show();
+
                         startActivity(moveToHeart);
                         break;
                     case(4):
+                        DataLog DataLog2 = new DataLog(date,latitude,longitude,"Stroke");
+                        new DataLogTask().execute(DataLog2);
+
+                        Toast toast2 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast2.show();
                         startActivity(moveToStroke);
                         break;
                     case(5):
+                        DataLog DataLog3 = new DataLog(date,latitude,longitude,"Poison");
+                        new DataLogTask().execute(DataLog3);
+
+                        Toast toast3 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast3.show();
                         startActivity(moveToPoison);
                         break;
                     case(6):
+                        DataLog DataLog4 = new DataLog(date,latitude,longitude,"Heat Stroke");
+                        new DataLogTask().execute(DataLog4);
+
+                        Toast toast4 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast4.show();
                         startActivity(moveToHeat);
                         break;
                     case(7):
+                        DataLog DataLog5 = new DataLog(date,latitude,longitude,"Anaphylaxis");
+                        new DataLogTask().execute(DataLog5);
+
+                        Toast toast5 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast5.show();
                         startActivity(moveToAllergy);
                         break;
                     case(8):
+                        DataLog DataLog6 = new DataLog(date,latitude,longitude,"Burns");
+                        new DataLogTask().execute(DataLog6);
+
+                        Toast toast6 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast6.show();
                         startActivity(moveToBurn);
                         break;
                     case(9):
+                        DataLog DataLog7 = new DataLog(date,latitude,longitude,"Major Trauma");
+                        new DataLogTask().execute(DataLog7);
+
+                        Toast toast7 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast7.show();
                         startActivity(moveToTrauma);
                         break;
                     case(10):
+                        DataLog DataLog8 = new DataLog(date,latitude,longitude,"Bone Fracture/Dislocation");
+                        new DataLogTask().execute(DataLog8);
+
+                        Toast toast8 = Toast.makeText(getApplicationContext(),
+                                "Diagnosis Created!",
+                                Toast.LENGTH_SHORT);
+
+                        toast8.show();
                         startActivity(moveToBone);
                         break;
 

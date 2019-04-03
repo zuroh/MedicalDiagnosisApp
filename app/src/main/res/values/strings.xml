@@ -61,4 +61,5 @@
         <item>Joint out of place</item>
         <item>Bone pierced skin</item>
     </string-array>
+    <string name="title_activity_chas">ChasActivity</string>
 </resources>
