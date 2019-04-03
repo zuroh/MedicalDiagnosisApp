@@ -83,48 +83,56 @@
             android:orientation="vertical">
 
             <CheckBox
+                android:id="@+id/chkBox1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Heart Attack"
                 android:textSize="25dp" />
 
             <CheckBox
+                android:id="@+id/chkBox2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Stroke"
                 android:textSize="25dp" />
 
             <CheckBox
+                android:id="@+id/chkBox3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Posion"
+                android:text="Poison"
                 android:textSize="25dp" />
 
             <CheckBox
+                android:id="@+id/chkBox4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Anaphylaxis"
                 android:textSize="25dp" />
 
             <CheckBox
+                android:id="@+id/chkBox5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Heat Stroke"
                 android:textSize="25dp" />
 
             <CheckBox
+                android:id="@+id/chkBox6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Burns"
                 android:textSize="25dp" />
 
             <CheckBox
+                android:id="@+id/chkBox7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Major Trauma "
+                android:text="Major Trauma"
                 android:textSize="25dp" />
 
             <CheckBox
+                android:id="@+id/chkBox8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Bone Fracture/Dislocation"
