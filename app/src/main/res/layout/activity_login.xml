@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient">
 
     <TextView
         android:layout_width="match_parent"
@@ -28,7 +29,9 @@
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login" />
+        android:background="@color/colorPrimaryDark"
+        android:text="Login"
+        android:textColor="@android:color/background_light" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -55,7 +58,7 @@
             tools:layout_editor_absoluteX="53dp" />
 
     </ScrollView>
-  
+  <!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -175,5 +178,24 @@
             app:layout_constraintVertical_bias="0.078" />
 
     </LinearLayout>
+    -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/btm_navigation_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="0dp"
+            app:menu="@menu/nav_menu"
+            app:labelVisibilityMode="labeled">
+
+        </android.support.design.widget.BottomNavigationView>
+
+    </RelativeLayout>
 
 </LinearLayout>

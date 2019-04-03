@@ -5,7 +5,8 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient">
 
 
     <TextView
@@ -45,7 +46,16 @@
                 android:layout_marginEnd="129dp"
                 android:layout_marginRight="129dp"
                 android:layout_marginBottom="104dp"
-                android:text="Administrator Mode" />
+                android:text="Administrator Mode"
+
+                android:background="@drawable/button_shape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
 
             <Button
                 android:id="@+id/changeLanguagePageButton"
@@ -62,11 +72,21 @@
                 android:layout_marginEnd="128dp"
                 android:layout_marginRight="128dp"
                 android:layout_marginBottom="190dp"
-                android:text="Change Language" />
+                android:text="Change Language"
+
+                android:background="@drawable/button_shape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
+
         </RelativeLayout>
 
 
-
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -169,5 +189,26 @@
             app:srcCompat="@android:drawable/ic_menu_help" />
 
     </LinearLayout>
+
+    -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/btm_navigation_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="0dp"
+            app:menu="@menu/nav_menu"
+            app:labelVisibilityMode="labeled">
+
+        </android.support.design.widget.BottomNavigationView>
+
+    </RelativeLayout>
+
 </LinearLayout>
 
