@@ -6,8 +6,11 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.medicaldiagnosisapp.ApiParser.GPS;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -405,50 +410,43 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
             //return error message here
         }
 
-        //Toolbar Buttons Start Here
+        //Bottom Navigation Start//
 
-        Button diagnoseButton = (Button) findViewById(R.id.diagnoseButton);
-        diagnoseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToDiagnose1 = new Intent(getApplicationContext(), DiagnoseActivityPage1.class);
-                startActivity(moveToDiagnose1);
-            }
-        });
+        BottomNavigationView btmNavMenu = (BottomNavigationView) findViewById(R.id.btm_navigation_menu);
 
-        ImageButton helpButton =  findViewById(R.id.helpButton);
-        helpButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent moveToHelp = new Intent(getApplicationContext(),HelpActivity.class);
-                startActivity(moveToHelp);
-            }
-        });
-        ImageButton locateButton =  findViewById(R.id.locateButton);
-        locateButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent moveToLocate = new Intent(getApplicationContext(),LocateActivity.class);
-                startActivity(moveToLocate);
-            }
-        });
-        ImageButton contactPageButton = findViewById(R.id.contactButton);
-        contactPageButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent moveToContact = new Intent(getApplicationContext(),ContactActivity.class);
-                startActivity(moveToContact);
-            }
-        });
-        ImageButton infoButton =  findViewById(R.id.infoButton);
-        infoButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent moveToInfo = new Intent(getApplicationContext(),InformationActivity.class);
-                startActivity(moveToInfo);
-            }
-        });
-        //Toolbar Buttons End Here//
+        btmNavMenu.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.nav_action_info:
+                                Intent moveToInfo = new Intent(getApplicationContext(), InformationActivity.class);
+                                startActivity(moveToInfo);
+                                break;
+                            case R.id.nav_action_call:
+                                Intent moveToContact = new Intent(getApplicationContext(), ContactActivity.class);
+                                startActivity(moveToContact);
+                                break;
+                            case R.id.nav_action_diagnose:
+                                Intent moveToDiagnose1 = new Intent(getApplicationContext(), DiagnoseActivityPage1.class);
+                                startActivity(moveToDiagnose1);
+                                break;
+                            case R.id.nav_action_locate:
+                                Intent moveToLocate = new Intent(getApplicationContext(), LocateActivity.class);
+                                startActivity(moveToLocate);
+                                break;
+                            case R.id.nav_action_help:
+                                Intent moveToHelp = new Intent(getApplicationContext(), HelpActivity.class);
+                                startActivity(moveToHelp);
+                                break;
+                        }
+                        return true;
+                    }
+
+                });
+
+        //Bottom navigation end//
+
 
         Button diagnose3Button = findViewById(R.id.diagnose3Button);
         diagnose3Button.setOnClickListener(new View.OnClickListener() {
@@ -481,13 +479,42 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                 double longitude = currentLocation.getLongitude();
                 double latitude = currentLocation.getLatitude();
 
-                double MaleHA = 1;
-                double FemaleHA = 1;
+                //URL of the APIs to fetch data
+                String dataGovURL = "https://data.gov.sg/api/action/datastore_search?";
+                String heartURL = dataGovURL + "resource_id=3d51e1e1-4069-4e04-85d5-ae3a310e98d4&q=%7B%22year%22%3A%222016%22%7D";
+                String strokeURL = dataGovURL + "resource_id=f1dfc058-8da9-4b53-b2dc-47260412ee34&q=%7B%22year%22%3A%222015%22%7D";
+
+                String maleHAString="";
+                String femaleHAString="";
+                String maleStrokeString="";
+                String femaleStrokeString="";
+
+                try{
+                    //fetch the required heart attack data from the API
+                    JSONObject heartJSON = new WebAPIHandler().execute(heartURL).get();
+                    JSONObject maleHeart = heartJSON.getJSONObject("result").getJSONArray("records").getJSONObject(0);
+                    maleHAString = maleHeart.getString("asir");
+                    JSONObject femaleHeart = heartJSON.getJSONObject("result").getJSONArray("records").getJSONObject(1);
+                    femaleHAString = femaleHeart.getString("asir");
+
+                    //fetch the required stroke data from the API
+                    JSONObject strokeJSON = new WebAPIHandler().execute(strokeURL).get();
+                    JSONObject maleStrokeData = strokeJSON.getJSONObject("result").getJSONArray("records").getJSONObject(0);
+                    maleStrokeString = maleStrokeData.getString("asir");
+                    JSONObject femaleStrokeData = strokeJSON.getJSONObject("result").getJSONArray("records").getJSONObject(1);
+                    femaleStrokeString = femaleStrokeData.getString("asir");
+
+                } catch (Exception e) {
+                    Log.e("Data.gov.sg", "Exception: " + e.getMessage());
+                }
+
+                double MaleHA = Double.parseDouble(maleHAString);
+                double FemaleHA = Double.parseDouble(femaleHAString);
                 double MaleHARatio = MaleHA/FemaleHA;
                 double FemaleHARatio = FemaleHA/MaleHA;
 
-                double MaleStroke = 1;
-                double FemaleStroke = 1;
+                double MaleStroke = Double.parseDouble(maleStrokeString);
+                double FemaleStroke = Double.parseDouble(femaleStrokeString);
                 double MaleStrokeRatio = MaleStroke/FemaleStroke;
                 double FemaleStrokeRatio = FemaleStroke/MaleStroke;
 

@@ -3,7 +3,10 @@ package com.example.medicaldiagnosisapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -57,6 +60,44 @@ public class LocateActivity extends AppCompatActivity {
                 startActivity(startIntent);
             }
         });
+
+        //Bottom Navigation Start//
+
+        BottomNavigationView btmNavMenu = (BottomNavigationView) findViewById(R.id.btm_navigation_menu);
+
+        btmNavMenu.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.nav_action_info:
+                                Intent moveToInfo = new Intent(getApplicationContext(), InformationActivity.class);
+                                startActivity(moveToInfo);
+                                break;
+                            case R.id.nav_action_call:
+                                Intent moveToContact = new Intent(getApplicationContext(), ContactActivity.class);
+                                startActivity(moveToContact);
+                                break;
+                            case R.id.nav_action_diagnose:
+                                Intent moveToDiagnose1 = new Intent(getApplicationContext(), DiagnoseActivityPage1.class);
+                                startActivity(moveToDiagnose1);
+                                break;
+                            case R.id.nav_action_locate:
+                                Intent moveToLocate = new Intent(getApplicationContext(), LocateActivity.class);
+                                startActivity(moveToLocate);
+                                break;
+                            case R.id.nav_action_help:
+                                Intent moveToHelp = new Intent(getApplicationContext(), HelpActivity.class);
+                                startActivity(moveToHelp);
+                                break;
+                        }
+                        return true;
+                    }
+
+                });
+
+        //Bottom navigation end//
+
 
     }
 
