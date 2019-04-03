@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AdminActivity3 extends AppCompatActivity {
 
@@ -15,6 +19,55 @@ public class AdminActivity3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin3);
+
+        Bundle extras = getIntent().getExtras();
+        final HashMap<String, Object> adminView = (HashMap<String, Object>) extras.get("adminView");
+        final ArrayList<String> regions = new ArrayList<String>();
+        adminView.put("Regions", regions);
+
+        CheckBox chknorth = findViewById(R.id.checkBox1);
+        chknorth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((CheckBox)v).isChecked();
+                if (checked){
+                    regions.add("North");
+                }
+            }
+        });
+
+        CheckBox chksouth = findViewById(R.id.checkBox2);
+        chksouth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((CheckBox)v).isChecked();
+                if (checked){
+                    regions.add("South");
+                }
+            }
+        });
+
+        CheckBox chkeast = findViewById(R.id.checkBox3);
+        chkeast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((CheckBox)v).isChecked();
+                if (checked){
+                    regions.add("East");
+                }
+            }
+        });
+
+        CheckBox chkwest = findViewById(R.id.checkBox4);
+        chkwest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((CheckBox)v).isChecked();
+                if (checked){
+                    regions.add("West");
+                }
+            }
+        });
 
         //Bottom Toolbar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -43,6 +96,7 @@ public class AdminActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent moveToAdminActFinal = new Intent(getApplicationContext(),AdminActivityFinal.class);
+                moveToAdminActFinal.putExtra("adminView", adminView);
                 startActivity(moveToAdminActFinal);
             }
         });
