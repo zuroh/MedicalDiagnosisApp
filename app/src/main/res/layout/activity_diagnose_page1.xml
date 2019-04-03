@@ -7,6 +7,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/btm_navigation_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/nav_menu"
+            app:labelVisibilityMode="labeled">
+
+        </android.support.design.widget.BottomNavigationView>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView6"

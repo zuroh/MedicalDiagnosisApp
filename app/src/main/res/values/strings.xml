@@ -3,6 +3,7 @@
     <string name="title_activity_diagnose_page1">diagnoseActivityPage1</string>
     <string name="gmaps_api_key">AIzaSyDOm9B1j6HAeZ-6wIi-aZAtko6-OHQrH0I</string>
     <string name="HomePage">Home Page</string>
+    <string name="HelpPage">Help Page</string>
     <string name="Change_language">Change language</string>
     <string name="INfo">information</string>
     <string name="Locate_acticity">Locate!</string>

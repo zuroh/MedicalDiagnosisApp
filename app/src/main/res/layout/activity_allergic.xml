@@ -5,6 +5,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
     android:orientation="vertical">
 
 
@@ -42,9 +43,10 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="7dp"
                 android:background="@drawable/rounded_corner"
-                android:text="1. Call emergency number(995)"
                 android:gravity="left|center_vertical"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
+                android:text="1. Call emergency number(995)"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/design_default_color_primary_dark" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -159,6 +161,8 @@
 
     </ScrollView>
 
+    <!--
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -261,6 +265,26 @@
             app:srcCompat="@android:drawable/ic_menu_help" />
 
     </LinearLayout>
+
+    -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/btm_navigation_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="0dp"
+            app:menu="@menu/nav_menu"
+            app:labelVisibilityMode="labeled">
+
+        </android.support.design.widget.BottomNavigationView>
+
+    </RelativeLayout>
 
 
 </LinearLayout>
