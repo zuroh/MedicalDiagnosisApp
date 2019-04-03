@@ -25,7 +25,6 @@ import com.example.medicaldiagnosisapp.ApiParser.GPS;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActivity {
 
     private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
@@ -487,6 +486,8 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                 switch(index){
                     case(3):
                         DataLog DataLog1 = new DataLog(date,latitude,longitude,"Heart Attack");
+                        new DataLogTask().execute(DataLog1);
+
                         Toast toast1 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
                                 Toast.LENGTH_SHORT);
@@ -497,6 +498,8 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                         break;
                     case(4):
                         DataLog DataLog2 = new DataLog(date,latitude,longitude,"Stroke");
+                        new DataLogTask().execute(DataLog2);
+
                         Toast toast2 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
                                 Toast.LENGTH_SHORT);
@@ -506,6 +509,8 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                         break;
                     case(5):
                         DataLog DataLog3 = new DataLog(date,latitude,longitude,"Poison");
+                        new DataLogTask().execute(DataLog3);
+
                         Toast toast3 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
                                 Toast.LENGTH_SHORT);
@@ -515,6 +520,8 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                         break;
                     case(6):
                         DataLog DataLog4 = new DataLog(date,latitude,longitude,"Heat Stroke");
+                        new DataLogTask().execute(DataLog4);
+
                         Toast toast4 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
                                 Toast.LENGTH_SHORT);
@@ -524,6 +531,8 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                         break;
                     case(7):
                         DataLog DataLog5 = new DataLog(date,latitude,longitude,"Anaphylaxis");
+                        new DataLogTask().execute(DataLog5);
+
                         Toast toast5 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
                                 Toast.LENGTH_SHORT);
@@ -532,7 +541,9 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                         startActivity(moveToAllergy);
                         break;
                     case(8):
-                        DataLog DataLog6 = new DataLog(date,latitude,longitude,"Burn");
+                        DataLog DataLog6 = new DataLog(date,latitude,longitude,"Burns");
+                        new DataLogTask().execute(DataLog6);
+
                         Toast toast6 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
                                 Toast.LENGTH_SHORT);
@@ -542,6 +553,8 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                         break;
                     case(9):
                         DataLog DataLog7 = new DataLog(date,latitude,longitude,"Major Trauma");
+                        new DataLogTask().execute(DataLog7);
+
                         Toast toast7 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
                                 Toast.LENGTH_SHORT);
@@ -550,7 +563,9 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                         startActivity(moveToTrauma);
                         break;
                     case(10):
-                        DataLog DataLog8 = new DataLog(date,latitude,longitude,"Bone");
+                        DataLog DataLog8 = new DataLog(date,latitude,longitude,"Bone Fracture/Dislocation");
+                        new DataLogTask().execute(DataLog8);
+
                         Toast toast8 = Toast.makeText(getApplicationContext(),
                                 "Diagnosis Created!",
                                 Toast.LENGTH_SHORT);
