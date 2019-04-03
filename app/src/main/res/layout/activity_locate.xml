@@ -11,66 +11,65 @@
         android:id="@+id/imageViewAed"
         android:layout_width="150sp"
         android:layout_height="150sp"
-        android:layout_above="@+id/imageViewChas"
+        android:layout_above="@+id/btm_navigation_menu"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="133dp"
-        android:layout_marginLeft="133dp"
-        android:layout_marginTop="86dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginRight="128dp"
-        android:layout_marginBottom="47dp"
-        app:srcCompat="@drawable/aed" />
+        android:layout_marginStart="123dp"
+        android:layout_marginLeft="123dp"
+        android:layout_marginEnd="138dp"
+        android:layout_marginRight="138dp"
+        android:layout_marginBottom="357dp"
+        app:srcCompat="@drawable/aed1" />
 
     <ImageView
         android:id="@+id/imageViewChas"
-        android:layout_width="150sp"
-        android:layout_height="150sp"
-        android:layout_above="@+id/imageViewPolyclinic"
+        android:layout_width="117dp"
+        android:layout_height="121dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="133dp"
-        android:layout_marginLeft="133dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginRight="128dp"
-        android:layout_marginBottom="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="54dp"
+        android:layout_marginLeft="54dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="206dp"
+        android:layout_toStartOf="@+id/imageViewPolyclinic"
+        android:layout_toLeftOf="@+id/imageViewPolyclinic"
         app:srcCompat="@drawable/chas" />
 
     <ImageView
         android:id="@+id/imageViewPolyclinic"
         android:layout_width="237dp"
         android:layout_height="212dp"
+        android:layout_above="@+id/btm_navigation_menu"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="99dp"
+        app:srcCompat="@drawable/poly" />
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/btm_navigation_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginEnd="86dp"
-        android:layout_marginRight="86dp"
-        android:layout_marginBottom="34dp"
-        app:srcCompat="@drawable/poly" />
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/nav_menu">
 
-
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/btm_navigation_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginBottom="0dp"
-            app:menu="@menu/nav_menu"
-            app:labelVisibilityMode="labeled">
-
-        </android.support.design.widget.BottomNavigationView>
+    </android.support.design.widget.BottomNavigationView>
 
 
 

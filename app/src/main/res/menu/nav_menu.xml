@@ -13,7 +13,7 @@
         android:id="@+id/nav_action_diagnose"
         android:icon="@drawable/ic_diagnose"
         />
-    <item android:title="Locate AED"
+    <item android:title="Locate"
         android:id="@+id/nav_action_locate"
         android:icon="@drawable/ic_locate"
         />
