@@ -124,11 +124,13 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onPostExecuteChasTask(Chas[] chass) {
         for (Chas chas : chass) {
-            Marker marker = mMap.addMarker(new MarkerOptions()
-                    .position(chas.getLatLng())
-                    .title(chas.getName())
-                    .snippet((chas.getAddress().concat(chas.getPostalCode()))));
-            mMarkerArray.add(marker);
+            if (chas!=null) {
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(chas.getLatLng())
+                        .title(chas.getName())
+                        .snippet((chas.getAddress().concat(chas.getPostalCode()))));
+                mMarkerArray.add(marker);
+            }
         }
     }
 
@@ -143,7 +145,7 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null && !mMarkerArray.isEmpty()) {
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(findNearest(location), 16.0f));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(findNearest(location), 15.0f));
                     }
                 }
             });
