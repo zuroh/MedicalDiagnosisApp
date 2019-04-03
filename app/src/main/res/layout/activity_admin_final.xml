@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
     tools:context=".AdminActivityFinal">
 
     <android.support.design.widget.BottomNavigationView
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="68dp"
         android:text="Total Cases: "
+        android:textColor="@android:color/holo_red_dark"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -50,6 +52,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Showing: "
+        android:textColor="@android:color/holo_red_dark"
         app:layout_constraintBottom_toTopOf="@+id/mapView"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="45dp" />

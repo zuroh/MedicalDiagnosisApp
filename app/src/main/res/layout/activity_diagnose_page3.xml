@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DiagnoseActivityPage3">
+    tools:context=".DiagnoseActivityPage3"
+    android:background="@drawable/bg_gradient">
+
+    <!--
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -110,6 +113,8 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@android:drawable/ic_search_category_default" />
 
+        -->
+
     <ScrollView
         android:id="@+id/hsv1"
         android:layout_width="match_parent"
@@ -155,7 +160,16 @@
                 app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.709" />
+                app:layout_constraintVertical_bias="0.709"
+
+                android:background="@drawable/button_shape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/testarray2"
@@ -167,6 +181,24 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/btm_navigation_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="0dp"
+            app:menu="@menu/nav_menu">
+
+        </android.support.design.widget.BottomNavigationView>
+    </RelativeLayout>
+
+
 
 
 
