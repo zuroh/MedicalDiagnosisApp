@@ -1,9 +1,12 @@
 package com.example.medicaldiagnosisapp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         startTimer();
 
-        //Toolbar Buttons Start Here
+        /*Toolbar Buttons Start Here
 
         Button diagnoseButton = (Button) findViewById(R.id.diagnoseButton);
         diagnoseButton.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +107,85 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(moveToInfo);
             }
         });
-        //Toolbar Buttons End Here//
+        //Toolbar Buttons End Here*/
+
+        //Common Conditions Buttons nav Start//
+
+        Button btnHeartAttk = (Button)findViewById(R.id.btnHeartAttack);
+        Button btnStroke = (Button)findViewById(R.id.btnStroke);
+        Button btnHeatEx = (Button)findViewById(R.id.btnHeatExhaustion);
+        Button btnMjrTrauma = (Button)findViewById(R.id.btnTrauma);
+
+        btnHeartAttk.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent goToHeartAttackInfo = new Intent(getApplicationContext(), HeartAttackActivity.class);
+                startActivity(goToHeartAttackInfo);
+            }
+        });
+
+        btnStroke.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent goToStrokeInfo = new Intent(getApplicationContext(), StrokeActivity.class);
+                startActivity(goToStrokeInfo);
+            }
+        });
+
+        btnHeatEx.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent goToHeatExhaustionInfo = new Intent(getApplicationContext(), HeatActivity.class);
+                startActivity(goToHeatExhaustionInfo);
+            }
+        });
+
+        btnMjrTrauma.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent goToMajorTraumaInfo = new Intent(getApplicationContext(), MajorTraumaActivity.class);
+                startActivity(goToMajorTraumaInfo);
+            }
+        });
+
+        //Common Conditions Buttons nav End//
+
+        //Bottom Navigation Start//
+
+        BottomNavigationView btmNavMenu = (BottomNavigationView) findViewById(R.id.btm_navigation_menu);
+
+        btmNavMenu.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.nav_action_info:
+                                Intent moveToInfo = new Intent(getApplicationContext(), InformationActivity.class);
+                                startActivity(moveToInfo);
+                                break;
+                            case R.id.nav_action_call:
+                                Intent moveToContact = new Intent(getApplicationContext(), ContactActivity.class);
+                                startActivity(moveToContact);
+                                break;
+                            case R.id.nav_action_diagnose:
+                                Intent moveToDiagnose1 = new Intent(getApplicationContext(), DiagnoseActivityPage1.class);
+                                startActivity(moveToDiagnose1);
+                                break;
+                            case R.id.nav_action_locate:
+                                Intent moveToLocate = new Intent(getApplicationContext(), LocateActivity.class);
+                                startActivity(moveToLocate);
+                                break;
+                            case R.id.nav_action_help:
+                                Intent moveToHelp = new Intent(getApplicationContext(), HelpActivity.class);
+                                startActivity(moveToHelp);
+                                break;
+                        }
+                        return true;
+                    }
+
+                });
+
+        //Bottom navigation end//
 
     }
 
