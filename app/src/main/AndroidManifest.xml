@@ -38,6 +38,8 @@
         <activity
             android:name=".AdminActivity1"
             android:launchMode="singleTask" />
+        <activity android:name=".PolyActivity" />
+        <activity android:name=".ChasActivity" />
         <activity android:name=".AedActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ChangeLanguageActivity" />

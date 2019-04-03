@@ -86,19 +86,23 @@ public class ChasAsyncTask extends AsyncTask<Void, Void, Chas[]> {
                     JSONObject feature = features.getJSONObject(i);
 
                     JSONObject geometry = feature.getJSONObject("geometry");
-                    JSONArray coordinates = geometry.getJSONArray("coordinates");
-                    double lat = coordinates.getDouble(1);
-                    double lng = coordinates.getDouble(0);
+                    if (geometry.has("coordinates")) {
+                        JSONArray coordinates = geometry.getJSONArray("coordinates");
+                        double lat = coordinates.getDouble(1);
+                        double lng = coordinates.getDouble(0);
+                        JSONObject properties = feature.getJSONObject("properties");
+                        String name = properties.getString("HCI_NAME");
+                        String street = properties.getString("STREET_NAME");
+                        String building = "";
+                        if(properties.has("BUILDING_NAME")) {
+                            building = "\n" + properties.getString("BUILDING_NAME");
+                        }
+                        String address = street + building;
+                        String postalCode = "\nS" + properties.getString("POSTAL_CD");
 
-                    JSONObject properties = feature.getJSONObject("properties");
-                    String name = properties.getString("HCI_NAME");
-                    String street = properties.getString("STREET_NAME");
-                    String building = properties.getString("BUILDING_NAME");
-                    String address = properties.getString("STREET_NAME") + "\n" + properties.getString("BUILDING_NAME");
-                    String postalCode = "\nS" + properties.getString("POSTAL_CD");
-
-                    chass[counter] = new Chas(lat, lng, name, address, postalCode);
-                    counter++;
+                        chass[counter] = new Chas(lat, lng, name, address, postalCode);
+                        counter++;
+                    }
 
                 } catch (JSONException e) {
                     Log.e(TAG,String.valueOf(e));

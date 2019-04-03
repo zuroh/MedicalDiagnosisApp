@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.medicaldiagnosisapp.ApiParser.GPS;
 
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -452,6 +454,8 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
             public void onClick(View v) {
                 Intent moveToDiagnose3 = new Intent(getApplicationContext(),DiagnoseActivityPage3.class);
                 moveToDiagnose3.putExtra("diagnoseArr",diagnoseArr);
+                moveToDiagnose3.putExtra("victimGender",victimGender);
+                moveToDiagnose3.putExtra("victimAge",victimAge);
                 startActivity(moveToDiagnose3);
             }
         });
@@ -474,6 +478,56 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                 String date = df.format(c);
                 double longitude = currentLocation.getLongitude();
                 double latitude = currentLocation.getLatitude();
+
+                //URL of the APIs to fetch data
+                String dataGovURL = "https://data.gov.sg/api/action/datastore_search?";
+                String heartURL = dataGovURL + "resource_id=3d51e1e1-4069-4e04-85d5-ae3a310e98d4&q=%7B%22year%22%3A%222016%22%7D";
+                String strokeURL = dataGovURL + "resource_id=f1dfc058-8da9-4b53-b2dc-47260412ee34&q=%7B%22year%22%3A%222015%22%7D";
+
+                String maleHAString="";
+                String femaleHAString="";
+                String maleStrokeString="";
+                String femaleStrokeString="";
+
+                try{
+                    //fetch the required heart attack data from the API
+                    JSONObject heartJSON = new WebAPIHandler().execute(heartURL).get();
+                    JSONObject maleHeart = heartJSON.getJSONObject("result").getJSONArray("records").getJSONObject(0);
+                    maleHAString = maleHeart.getString("asir");
+                    JSONObject femaleHeart = heartJSON.getJSONObject("result").getJSONArray("records").getJSONObject(1);
+                    femaleHAString = femaleHeart.getString("asir");
+
+                    //fetch the required stroke data from the API
+                    JSONObject strokeJSON = new WebAPIHandler().execute(strokeURL).get();
+                    JSONObject maleStrokeData = strokeJSON.getJSONObject("result").getJSONArray("records").getJSONObject(0);
+                    maleStrokeString = maleStrokeData.getString("asir");
+                    JSONObject femaleStrokeData = strokeJSON.getJSONObject("result").getJSONArray("records").getJSONObject(1);
+                    femaleStrokeString = femaleStrokeData.getString("asir");
+
+                } catch (Exception e) {
+                    Log.e("Data.gov.sg", "Exception: " + e.getMessage());
+                }
+
+                double MaleHA = Double.parseDouble(maleHAString);
+                double FemaleHA = Double.parseDouble(femaleHAString);
+                double MaleHARatio = MaleHA/FemaleHA;
+                double FemaleHARatio = FemaleHA/MaleHA;
+
+                double MaleStroke = Double.parseDouble(maleStrokeString);
+                double FemaleStroke = Double.parseDouble(femaleStrokeString);
+                double MaleStrokeRatio = MaleStroke/FemaleStroke;
+                double FemaleStrokeRatio = FemaleStroke/MaleStroke;
+
+                if((victimGender == "Male")||victimGender == "male"){
+                    diagnoseArr[3]=diagnoseArr[3]*MaleHARatio;
+                    diagnoseArr[4]=diagnoseArr[4]*MaleStrokeRatio;
+                }
+                else{
+                    diagnoseArr[3]=diagnoseArr[3]*FemaleHARatio;
+                    diagnoseArr[4]=diagnoseArr[4]*FemaleStrokeRatio;
+                }
+
+
 
                 double max = diagnoseArr[3];
                 int index = 3;
