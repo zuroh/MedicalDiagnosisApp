@@ -61,6 +61,8 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
         Intent getfrompage2 = getIntent();
         Bundle extras = getIntent().getExtras();
         final double [] diagnoseArr = extras.getDoubleArray("diagnoseArr");
+        final String victimGender = extras.getString("victimGender");
+        final int victimAge = extras.getInt("victimAge");
 
         //testing array values output
         TextView testArray2 = (TextView) findViewById(R.id.testarray2);
@@ -851,6 +853,25 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                 String date = df.format(c);
                 double longitude = currentLocation.getLongitude();
                 double latitude = currentLocation.getLatitude();
+
+                double MaleHA = 1;
+                double FemaleHA = 1;
+                double MaleHARatio = MaleHA/FemaleHA;
+                double FemaleHARatio = FemaleHA/MaleHA;
+
+                double MaleStroke = 1;
+                double FemaleStroke = 1;
+                double MaleStrokeRatio = MaleStroke/FemaleStroke;
+                double FemaleStrokeRatio = FemaleStroke/MaleStroke;
+
+                if((victimGender == "Male")||victimGender == "male"){
+                    diagnoseArr[3]=diagnoseArr[3]*MaleHARatio;
+                    diagnoseArr[4]=diagnoseArr[4]*MaleStrokeRatio;
+                }
+                else{
+                    diagnoseArr[3]=diagnoseArr[3]*FemaleHARatio;
+                    diagnoseArr[4]=diagnoseArr[4]*FemaleStrokeRatio;
+                }
 
                 double max = diagnoseArr[3];
                 int index = 3;

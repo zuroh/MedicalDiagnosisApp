@@ -456,6 +456,8 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
             public void onClick(View v) {
                 Intent moveToDiagnose3 = new Intent(getApplicationContext(),DiagnoseActivityPage3.class);
                 moveToDiagnose3.putExtra("diagnoseArr",diagnoseArr);
+                moveToDiagnose3.putExtra("victimGender",victimGender);
+                moveToDiagnose3.putExtra("victimAge",victimAge);
                 startActivity(moveToDiagnose3);
             }
         });
@@ -478,6 +480,27 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                 String date = df.format(c);
                 double longitude = currentLocation.getLongitude();
                 double latitude = currentLocation.getLatitude();
+
+                double MaleHA = 1;
+                double FemaleHA = 1;
+                double MaleHARatio = MaleHA/FemaleHA;
+                double FemaleHARatio = FemaleHA/MaleHA;
+
+                double MaleStroke = 1;
+                double FemaleStroke = 1;
+                double MaleStrokeRatio = MaleStroke/FemaleStroke;
+                double FemaleStrokeRatio = FemaleStroke/MaleStroke;
+
+                if((victimGender == "Male")||victimGender == "male"){
+                    diagnoseArr[3]=diagnoseArr[3]*MaleHARatio;
+                    diagnoseArr[4]=diagnoseArr[4]*MaleStrokeRatio;
+                }
+                else{
+                    diagnoseArr[3]=diagnoseArr[3]*FemaleHARatio;
+                    diagnoseArr[4]=diagnoseArr[4]*FemaleStrokeRatio;
+                }
+
+
 
                 double max = diagnoseArr[3];
                 int index = 3;
