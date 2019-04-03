@@ -1,16 +1,13 @@
 package com.example.medicaldiagnosisapp;
 
-<<<<<<< Updated upstream
-import android.Manifest;
-import android.content.pm.PackageManager;
-=======
 import android.content.Context;
 import android.content.Intent;
->>>>>>> Stashed changes
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.medicaldiagnosisapp.fragments.AedFragment;
 
 public class LocateActivity extends AppCompatActivity {
 
@@ -51,16 +48,6 @@ public class LocateActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< Updated upstream
-        /**
-         * Check for user button click
-         * Activates AedFragment
-         */
-        aedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addFragment(new AedFragment(), false, "aed");
-=======
         imageViewPolyclinic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +55,6 @@ public class LocateActivity extends AppCompatActivity {
                 Class destinationActivity = PolyActivity.class;
                 Intent startIntent = new Intent(context, destinationActivity);
                 startActivity(startIntent);
->>>>>>> Stashed changes
             }
         });
 

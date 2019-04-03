@@ -1,4 +1,5 @@
 package com.example.medicaldiagnosisapp;
 
-public class DBLoggingInterface {
+public interface DBLoggingInterface {
+    public void updateDB(DataLog log);
 }

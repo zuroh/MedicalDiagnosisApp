@@ -86,6 +86,7 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
                 EditText getGender = findViewById(R.id.enterGender);
                 String stringGender = getGender.getText().toString();
 
+                //change back
                 Intent moveToDiagnose2 = new Intent(getApplicationContext(),DiagnoseActivityPage2.class);
                 moveToDiagnose2.putExtra(extraVictimAge,victimAge);
                 moveToDiagnose2.putExtra(extraVictimGender,stringGender);
