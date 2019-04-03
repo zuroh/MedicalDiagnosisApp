@@ -6,11 +6,8 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -408,42 +405,50 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
             //return error message here
         }
 
-        //Bottom Navigation Start//
+        //Toolbar Buttons Start Here
 
-        BottomNavigationView btmNavMenu = (BottomNavigationView) findViewById(R.id.btm_navigation_menu);
+        Button diagnoseButton = (Button) findViewById(R.id.diagnoseButton);
+        diagnoseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToDiagnose1 = new Intent(getApplicationContext(), DiagnoseActivityPage1.class);
+                startActivity(moveToDiagnose1);
+            }
+        });
 
-        btmNavMenu.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.nav_action_info:
-                                Intent moveToInfo = new Intent(getApplicationContext(), InformationActivity.class);
-                                startActivity(moveToInfo);
-                                break;
-                            case R.id.nav_action_call:
-                                Intent moveToContact = new Intent(getApplicationContext(), ContactActivity.class);
-                                startActivity(moveToContact);
-                                break;
-                            case R.id.nav_action_diagnose:
-                                Intent moveToDiagnose1 = new Intent(getApplicationContext(), DiagnoseActivityPage1.class);
-                                startActivity(moveToDiagnose1);
-                                break;
-                            case R.id.nav_action_locate:
-                                Intent moveToLocate = new Intent(getApplicationContext(), LocateActivity.class);
-                                startActivity(moveToLocate);
-                                break;
-                            case R.id.nav_action_help:
-                                Intent moveToHelp = new Intent(getApplicationContext(), HelpActivity.class);
-                                startActivity(moveToHelp);
-                                break;
-                        }
-                        return true;
-                    }
-
-                });
-
-        //Bottom navigation end//
+        ImageButton helpButton =  findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent moveToHelp = new Intent(getApplicationContext(),HelpActivity.class);
+                startActivity(moveToHelp);
+            }
+        });
+        ImageButton locateButton =  findViewById(R.id.locateButton);
+        locateButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent moveToLocate = new Intent(getApplicationContext(),LocateActivity.class);
+                startActivity(moveToLocate);
+            }
+        });
+        ImageButton contactPageButton = findViewById(R.id.contactButton);
+        contactPageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent moveToContact = new Intent(getApplicationContext(),ContactActivity.class);
+                startActivity(moveToContact);
+            }
+        });
+        ImageButton infoButton =  findViewById(R.id.infoButton);
+        infoButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent moveToInfo = new Intent(getApplicationContext(),InformationActivity.class);
+                startActivity(moveToInfo);
+            }
+        });
+        //Toolbar Buttons End Here//
 
         Button diagnose3Button = findViewById(R.id.diagnose3Button);
         diagnose3Button.setOnClickListener(new View.OnClickListener() {
