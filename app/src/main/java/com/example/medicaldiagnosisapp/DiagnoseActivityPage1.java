@@ -19,7 +19,7 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnose_page1);
 
-        final int [] diagnoseArr = {0,0,0,0,0,0,0,0,0,0,0,0};
+        final double [] diagnoseArr = {0,0,0,0,0,0,0,0,0,0,0,0};
         //array is [phy,ingest,allergy,heart,stroke,poison,heat,anaphy,burn,trauma,bone]
 
 
@@ -86,6 +86,7 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
                 EditText getGender = findViewById(R.id.enterGender);
                 String stringGender = getGender.getText().toString();
 
+                //change back
                 Intent moveToDiagnose2 = new Intent(getApplicationContext(),DiagnoseActivityPage2.class);
                 moveToDiagnose2.putExtra(extraVictimAge,victimAge);
                 moveToDiagnose2.putExtra(extraVictimGender,stringGender);

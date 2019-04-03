@@ -86,14 +86,6 @@ public class LoginActivity extends AppCompatActivity {
         });
         //Toolbar Buttons End Here//
 
-        Button lginButton = (Button) findViewById(R.id.login);
-        lginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToAdmin1 = new Intent(getApplicationContext(), AdminActivity1.class);
-                startActivity(moveToAdmin1);
-            }
-        });
     }
 
     private void emailLogin() {

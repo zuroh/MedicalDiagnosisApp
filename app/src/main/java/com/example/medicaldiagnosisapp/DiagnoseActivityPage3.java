@@ -60,21 +60,21 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
 
         Intent getfrompage2 = getIntent();
         Bundle extras = getIntent().getExtras();
-        final int [] diagnoseArr = extras.getIntArray("diagnoseArr");
+        final double [] diagnoseArr = extras.getDoubleArray("diagnoseArr");
 
         //testing array values output
         TextView testArray2 = (TextView) findViewById(R.id.testarray2);
         int arraylength = diagnoseArr.length;
 
         for(int i=0;i<arraylength;i++){
-            String temp = Integer.toString(diagnoseArr[i]);
+            String temp = Double.toString(diagnoseArr[i]);
             testArray2.append(temp);
         }
 
         //Check for top 3 conditions based on array.
-        int first=diagnoseArr[3];
-        int second=diagnoseArr[3];
-        int third=diagnoseArr[3];
+        double first=diagnoseArr[3];
+        double second=diagnoseArr[3];
+        double third=diagnoseArr[3];
         int firstindex=0;
         int secondindex=0;
         int thirdindex=0;
@@ -84,7 +84,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                 firstindex=j;
             }
         }
-        int tempfirst = diagnoseArr[firstindex];
+        double tempfirst = diagnoseArr[firstindex];
         diagnoseArr[firstindex]=0;
         for(int j=3;j<10;j++){
             if(second<diagnoseArr[j]) {
@@ -92,7 +92,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                 secondindex=j;
             }
         }
-        int tempsecond = diagnoseArr[secondindex];
+        double tempsecond = diagnoseArr[secondindex];
         diagnoseArr[secondindex] = 0;
         for(int j=3;j<10;j++){
             if(third<diagnoseArr[j]) {
@@ -852,7 +852,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                 double longitude = currentLocation.getLongitude();
                 double latitude = currentLocation.getLatitude();
 
-                int max = diagnoseArr[3];
+                double max = diagnoseArr[3];
                 int index = 3;
 
                 for(int j=3;j<10;j++){

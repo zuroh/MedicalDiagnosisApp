@@ -23,6 +23,7 @@ import com.example.medicaldiagnosisapp.ApiParser.GPS;
 import com.example.medicaldiagnosisapp.ApiParser.KmlParser;
 import com.example.medicaldiagnosisapp.IGPSActivity;
 import com.example.medicaldiagnosisapp.R;
+import com.example.medicaldiagnosisapp.utilities.GMapsMarker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

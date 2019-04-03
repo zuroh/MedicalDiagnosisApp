@@ -71,9 +71,9 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
 
         Intent getfrompage1 = getIntent();
         Bundle extras = getIntent().getExtras();
-        final int [] diagnoseArr = extras.getIntArray("diagnoseArr");
-        String victimGender = getfrompage1.getStringExtra(DiagnoseActivityPage1.extraVictimGender);
-        int victimAge = getfrompage1.getIntExtra(DiagnoseActivityPage1.extraVictimAge,0);
+        final double [] diagnoseArr = extras.getDoubleArray("diagnoseArr");
+        final String victimGender = getfrompage1.getStringExtra(DiagnoseActivityPage1.extraVictimGender);
+        final int victimAge = getfrompage1.getIntExtra(DiagnoseActivityPage1.extraVictimAge,0);
 
         ScrollView hsv1 = (ScrollView)findViewById(R.id.hsv1);
         LinearLayout ll = (LinearLayout)hsv1.findViewById(R.id.hsvLayout1);
@@ -88,7 +88,7 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
         int arraylength = diagnoseArr.length;
 
         for(int i=0;i<arraylength;i++){
-            String temp = Integer.toString(diagnoseArr[i]);
+            String temp = Double.toString(diagnoseArr[i]);
             testArray.append(temp);
         }
         //Test to dynamically add checkboxes
@@ -479,7 +479,7 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                 double longitude = currentLocation.getLongitude();
                 double latitude = currentLocation.getLatitude();
 
-                int max = diagnoseArr[3];
+                double max = diagnoseArr[3];
                 int index = 3;
 
                 for(int j=3;j<10;j++){

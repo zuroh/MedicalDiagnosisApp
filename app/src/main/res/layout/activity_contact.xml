@@ -16,7 +16,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Login"
+        android:text="Emergency Contact"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="30sp"
         tools:text="@string/HomePage" />

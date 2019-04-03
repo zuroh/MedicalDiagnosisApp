@@ -10,4 +10,5 @@ public class DataLogContext {
     public void logData(DataLog log){
         logger.updateDB(log);
     }
+
 }
