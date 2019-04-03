@@ -124,13 +124,11 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onPostExecuteChasTask(Chas[] chass) {
         for (Chas chas : chass) {
-            if (chas!=null) {
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(chas.getLatLng())
                         .title(chas.getName())
                         .snippet((chas.getAddress().concat(chas.getPostalCode()))));
                 mMarkerArray.add(marker);
-            }
         }
     }
 

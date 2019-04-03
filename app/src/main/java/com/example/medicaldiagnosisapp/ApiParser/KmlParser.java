@@ -3,6 +3,7 @@ package com.example.medicaldiagnosisapp.ApiParser;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,14 +26,11 @@ public class KmlParser {
      */
     public static Document createDocumentFromKml(Context context, String fileName) throws Exception{
         InputStream is = context.getAssets().open(fileName);
-
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(is);
-
         Element element = doc.getDocumentElement();
         element.normalize();
-
         return doc;
     }
 
@@ -103,7 +101,29 @@ public class KmlParser {
         return loc;
     }
 
-    public static String getMarkerInfoP (Document doc, int KMLIndex) {
+    public static double getLongP (Document doc, int KMLindex) {
+        NodeList nListC = doc.getElementsByTagName("Coordinates");
+        Node nodeC = nListC.item(KMLindex);
+        Element element3 = (Element) nodeC;
+
+        String coordinates = element3.getTextContent();//getValue("coordinates", element3, 0);
+        String [] parts = coordinates.split(",");
+        double lon = Double.valueOf(parts[0]);
+        return lon;
+    }
+
+    public static double getLatP (Document doc, int KMLindex) {
+        NodeList nListC = doc.getElementsByTagName("Coordinates");
+        Node nodeC = nListC.item(KMLindex);
+        Element element3 = (Element) nodeC;
+
+        String coordinates = element3.getTextContent();//getValue("coordinates", element3, 0);
+        String [] parts = coordinates.split(",");
+        double lat = Double.valueOf(parts[1]);
+        return lat;
+    }
+
+    public static String getMarkerTitleP (Document doc, int KMLIndex) {
         //get the right KML_id parent node
         NodeList nListC = doc.getElementsByTagName("Placemark");
         Node nodeC = nListC.item(KMLIndex);
@@ -112,8 +132,22 @@ public class KmlParser {
         //avoid java.lang.NullPointerException
         if (element != null) {
             Node node = element.getElementsByTagName("Name").item(0);
+            return node.getFirstChild().getNodeValue();
+        }
+        else
+            return "";
+    }
+
+    public static String getMarkerInfoP (Document doc, int KMLIndex) {
+        //get the right KML_id parent node
+        NodeList nListC = doc.getElementsByTagName("Placemark");
+        Node nodeC = nListC.item(KMLIndex);
+        Element element = (Element) nodeC;
+
+        //avoid java.lang.NullPointerException
+        if (element != null) {
             Node node1 = element.getElementsByTagName("Tel").item(0);
-            return node.getFirstChild().getNodeValue() + "\n" + node1.getFirstChild().getNodeValue();
+            return node1.getFirstChild().getNodeValue();
         }
         else
             return "";

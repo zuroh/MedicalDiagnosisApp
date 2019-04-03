@@ -93,7 +93,10 @@ public class ChasAsyncTask extends AsyncTask<Void, Void, Chas[]> {
                         JSONObject properties = feature.getJSONObject("properties");
                         String name = properties.getString("HCI_NAME");
                         String street = properties.getString("STREET_NAME");
-                        String building = properties.getString("BUILDING_NAME");
+                        String building = "";
+                        if(properties.has("BUILDING_NAME")) {
+                            building = "\n" + properties.getString("BUILDING_NAME");
+                        }
                         String address = street + building;
                         String postalCode = "\nS" + properties.getString("POSTAL_CD");
 
