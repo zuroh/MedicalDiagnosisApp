@@ -45,7 +45,7 @@ public class PolyAsyncTask extends AsyncTask<Void, Void, Poly[]> {
             //String result = NetworkUtils.getResponseFromHttpUrl(url);
             Document doc = KmlParser.createDocumentFromKml(context, "polyclinics.kml");
             Log.v("tag", "read json file from assets" );
-            return parseJSON(doc);
+            return parseKML(doc);
         } catch (MalformedURLException e) {
             Log.e(TAG, String.valueOf(e));
         } catch (IOException e) {
@@ -63,20 +63,21 @@ public class PolyAsyncTask extends AsyncTask<Void, Void, Poly[]> {
         }
     }
 
-    private Poly[] parseJSON(Document doc){
+    private Poly[] parseKML(Document doc){
 
-        int iterations = KmlParser.getNoNodes(doc, "Point");
+        int iterations = KmlParser.getNoNodes(doc, "Placemark");
+
         Poly[] polys = new Poly[iterations];
         String markerInfo = "";
 
-        for (int i = 0; i < iterations; i++) { //replace with iterations
-            Location tmpPolyL = KmlParser.getCoordinates(doc, i);
-            double lat = Double.valueOf(tmpPolyL.getLatitude());
-            double lng = Double.valueOf(tmpPolyL.getLongitude());
+        for (int i = 0; i < iterations; i++) {
 
-            markerInfo = KmlParser.getMarkerInfoP(doc, i);
+            double lat = KmlParser.getLatP(doc, i);
+            double lng = KmlParser.getLongP(doc, i);
 
-            polys[i] = new Poly (lat, lng, "Nearest Aed", markerInfo, "");
+            polys[i] = new Poly (lat, lng,  KmlParser.getMarkerTitleP(doc, i),
+                    KmlParser.getMarkerInfoP(doc, i), "");
+            Log.i ("tag", markerInfo + String.valueOf(lat));
         }
 
         return polys;

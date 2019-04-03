@@ -143,7 +143,7 @@ public class PolyActivity extends AppCompatActivity implements OnMapReadyCallbac
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null && !mMarkerArray.isEmpty()) {
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(findNearest(location), 16.0f));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(findNearest(location), 15.0f));
                     }
                 }
             });
