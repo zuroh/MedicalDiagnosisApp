@@ -36,12 +36,23 @@ public class LoginActivity extends AppCompatActivity {
 
         startUI();
 
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    emailLogin();
+//                }
+//        });
+
+        //for test
+        Button loginButton = (Button) findViewById(R.id.login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emailLogin();
+                Intent intent = new Intent(LoginActivity.this, AdminActivity1.class);
+                startActivity(intent);
             }
         });
+        //for test
 
         /*Toolbar Buttons Start Here
 

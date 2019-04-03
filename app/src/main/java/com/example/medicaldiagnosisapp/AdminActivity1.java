@@ -123,9 +123,9 @@ public class AdminActivity1 extends AppCompatActivity {
                             case R.id.action_admin_exit:
                                 Intent moveToMainAct = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(moveToMainAct);
-                                break;
+                                return false;
                             case R.id.action_admin_restart:
-                                break;
+                                return false;
                         }
                         return true;
                     }
