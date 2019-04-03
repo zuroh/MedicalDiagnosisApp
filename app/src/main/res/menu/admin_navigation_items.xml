@@ -8,5 +8,5 @@
         android:title="Admin Exit"
         android:icon="@drawable/admin_exit" />
 
-// image obtained from open source, https://material.io
+    <!--image obtained from open source, https://material.io-->
 </menu>

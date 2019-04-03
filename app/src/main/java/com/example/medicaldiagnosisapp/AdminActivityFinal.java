@@ -1,29 +1,49 @@
 package com.example.medicaldiagnosisapp;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
-
-public class AdminActivityFinal extends AppCompatActivity {
+public class AdminActivityFinal extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseRef;
     private DatabaseReference logRef;
+
+    private static final int LOCATION_REQUEST_CODE = 991;
+    private GoogleMap mMap;
+    private ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +62,6 @@ public class AdminActivityFinal extends AppCompatActivity {
 
         Query query = logRef.orderByChild("date").startAt(startEndDate[0]).endAt(startEndDate[1]);
 
-        Log.d("tag", "entering query" + startEndDate[0] + startEndDate[1]);
-
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
@@ -52,25 +70,28 @@ public class AdminActivityFinal extends AppCompatActivity {
 
                 regionsearch:
                 for(String regionChosen : regions){
-                    Log.d("tag", "reg find"+region+regionChosen);
                     if(region.equals(regionChosen)){
-                        Log.d("tag", "region same");
                         for(String conditionChosen : condition){
-                            Log.d("tag", "Confind");
                             if(type.equals(conditionChosen)){
                                 //get coordinates
                                 double latitude = (double) dataSnapshot.child("latitude").getValue();
                                 double longitude = (double) dataSnapshot.child("longitude").getValue();
-                                //add marker on map
-
+                                //add marker into array
+                                Marker marker = mMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(latitude, longitude))
+                                        .title(String.valueOf(dataSnapshot.child("date").getValue()))
+                                        .snippet(conditionChosen + "\n" + regionChosen + "region"));
+                                mMarkerArray.add(marker);
                                 Toast t = Toast.makeText(getApplicationContext(), String.valueOf(latitude), Toast.LENGTH_LONG);
-                                Log.d("tag", "Confound");
                                 t.show();
-                                break regionsearch;
+                                break regionsearch; //break 2 (for loops) with regionsearch:
                             }
                         }
                     }
                 }
+                //Dynamic text view
+                TextView totalCase = (TextView) findViewById(R.id.textViewTotalCase);
+                totalCase.setText("Total Number of Diagnosis: " + String.valueOf(mMarkerArray.size()));
             }
 
             @Override
@@ -108,12 +129,83 @@ public class AdminActivityFinal extends AppCompatActivity {
                 });
         //Bottom Toolbar end
 
-        //Gmap View
+        //Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
-        //Gmap View end
-
-        //Dynamic textview
-
-        //Dynamic textview end
     }
+
+    //Gmap View
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            if (permissions.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        mMap = googleMap;
+
+        mMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setMinZoomPreference(10.0f);
+        mMap.setMaxZoomPreference(16.0f);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(1.35, 103.8), 11));
+
+        LatLngBounds SINGAPORE = new LatLngBounds(
+                new LatLng(1.152761, 103.559083), new LatLng(1.487512, 104.113698));
+        mMap.setLatLngBoundsForCameraTarget(SINGAPORE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_REQUEST_CODE);
+        }
+    }
+
+    public class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private final View myContentsView;
+
+        MyInfoWindowAdapter() {
+            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_windows, null);
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+            TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.emergency_service)); //just reuse existing
+            tvTitle.setText(marker.getTitle());
+            TextView tvSnippet = ((TextView) myContentsView.findViewById(R.id.snippet));
+            tvSnippet.setText(marker.getSnippet());
+
+            return myContentsView;
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            return null;
+        }
+
+    }
+    //Gmap View end
 }
