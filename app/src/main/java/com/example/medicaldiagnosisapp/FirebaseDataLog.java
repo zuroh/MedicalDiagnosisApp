@@ -33,4 +33,5 @@ public class FirebaseDataLog implements DBLoggingInterface {
             Log.e("Firebase Update", "Exception: " + e.getMessage());
         }
     }
+
 }

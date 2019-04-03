@@ -10,4 +10,5 @@ public class DataLogTask extends AsyncTask<DataLog, Void, Void> {
 
         return null;
     }
+
 }
