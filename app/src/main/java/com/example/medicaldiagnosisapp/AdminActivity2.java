@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class AdminActivity2 extends AppCompatActivity {
 
     @Override
@@ -80,6 +82,7 @@ public class AdminActivity2 extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_admin_exit:
+                                FirebaseAuth.getInstance().signOut();
                                 Intent moveToMainAct = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(moveToMainAct);
                                 break;

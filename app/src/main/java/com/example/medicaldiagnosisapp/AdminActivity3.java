@@ -13,6 +13,8 @@ import android.widget.CheckBox;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class AdminActivity3 extends AppCompatActivity {
 
     @Override
@@ -78,6 +80,7 @@ public class AdminActivity3 extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_admin_exit:
+                                FirebaseAuth.getInstance().signOut();
                                 Intent moveToMainAct = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(moveToMainAct);
                                 break;

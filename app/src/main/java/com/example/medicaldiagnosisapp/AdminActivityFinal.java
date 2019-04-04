@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,6 +117,7 @@ public class AdminActivityFinal extends AppCompatActivity implements OnMapReadyC
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_admin_exit:
+                                FirebaseAuth.getInstance().signOut();
                                 Intent moveToMainAct = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(moveToMainAct);
                                 break;
