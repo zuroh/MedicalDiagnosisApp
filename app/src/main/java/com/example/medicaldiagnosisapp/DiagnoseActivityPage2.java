@@ -83,19 +83,19 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
         ScrollView hsv1 = (ScrollView)findViewById(R.id.hsv1);
         LinearLayout ll = (LinearLayout)hsv1.findViewById(R.id.hsvLayout1);
 
-        TextView testGender = (TextView) findViewById(R.id.testgender);
-        TextView testAge = (TextView) findViewById(R.id.testage);
-        TextView testArray = (TextView) findViewById(R.id.arraytestoutput);
-        testGender.setText(victimGender);
-        testAge.setText("" + victimAge);
+        //TextView testGender = (TextView) findViewById(R.id.testgender);
+        //TextView testAge = (TextView) findViewById(R.id.testage);
+        //TextView testArray = (TextView) findViewById(R.id.arraytestoutput);
+        //testGender.setText(victimGender);
+        //testAge.setText("" + victimAge);
 
         //testing array values output
-        int arraylength = diagnoseArr.length;
+        //int arraylength = diagnoseArr.length;
 
-        for(int i=0;i<arraylength;i++){
-            String temp = Double.toString(diagnoseArr[i]);
-            testArray.append(temp);
-        }
+       // for(int i=0;i<arraylength;i++){
+        //    String temp = Double.toString(diagnoseArr[i]);
+       //     testArray.append(temp);
+       // }
         //Test to dynamically add checkboxes
 
         Resources res = getResources();
@@ -543,11 +543,7 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                         DataLog DataLog1 = new DataLog(date,latitude,longitude,"Heart Attack");
                         new DataLogTask().execute(DataLog1);
 
-                        Toast toast1 = Toast.makeText(getApplicationContext(),
-                                "Diagnosis Created!",
-                                Toast.LENGTH_SHORT);
 
-                        toast1.show();
 
                         startActivity(moveToHeart);
                         break;
@@ -555,77 +551,51 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                         DataLog DataLog2 = new DataLog(date,latitude,longitude,"Stroke");
                         new DataLogTask().execute(DataLog2);
 
-                        Toast toast2 = Toast.makeText(getApplicationContext(),
-                                "Diagnosis Created!",
-                                Toast.LENGTH_SHORT);
 
-                        toast2.show();
                         startActivity(moveToStroke);
                         break;
                     case(5):
                         DataLog DataLog3 = new DataLog(date,latitude,longitude,"Poison");
                         new DataLogTask().execute(DataLog3);
 
-                        Toast toast3 = Toast.makeText(getApplicationContext(),
-                                "Diagnosis Created!",
-                                Toast.LENGTH_SHORT);
 
-                        toast3.show();
                         startActivity(moveToPoison);
                         break;
                     case(6):
                         DataLog DataLog4 = new DataLog(date,latitude,longitude,"Heat Stroke");
                         new DataLogTask().execute(DataLog4);
 
-                        Toast toast4 = Toast.makeText(getApplicationContext(),
-                                "Diagnosis Created!",
-                                Toast.LENGTH_SHORT);
 
-                        toast4.show();
                         startActivity(moveToHeat);
                         break;
                     case(7):
                         DataLog DataLog5 = new DataLog(date,latitude,longitude,"Anaphylaxis");
                         new DataLogTask().execute(DataLog5);
 
-                        Toast toast5 = Toast.makeText(getApplicationContext(),
-                                "Diagnosis Created!",
-                                Toast.LENGTH_SHORT);
 
-                        toast5.show();
                         startActivity(moveToAllergy);
                         break;
                     case(8):
                         DataLog DataLog6 = new DataLog(date,latitude,longitude,"Burns");
                         new DataLogTask().execute(DataLog6);
 
-                        Toast toast6 = Toast.makeText(getApplicationContext(),
-                                "Diagnosis Created!",
-                                Toast.LENGTH_SHORT);
 
-                        toast6.show();
                         startActivity(moveToBurn);
                         break;
                     case(9):
                         DataLog DataLog7 = new DataLog(date,latitude,longitude,"Major Trauma");
                         new DataLogTask().execute(DataLog7);
 
-                        Toast toast7 = Toast.makeText(getApplicationContext(),
-                                "Diagnosis Created!",
-                                Toast.LENGTH_SHORT);
 
-                        toast7.show();
                         startActivity(moveToTrauma);
                         break;
                     case(10):
                         DataLog DataLog8 = new DataLog(date,latitude,longitude,"Bone Fracture/Dislocation");
                         new DataLogTask().execute(DataLog8);
 
-                        Toast toast8 = Toast.makeText(getApplicationContext(),
-                                "Diagnosis Created!",
-                                Toast.LENGTH_SHORT);
 
-                        toast8.show();
+
+
                         startActivity(moveToBone);
                         break;
 
