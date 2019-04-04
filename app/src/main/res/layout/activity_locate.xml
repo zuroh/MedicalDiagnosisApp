@@ -7,6 +7,19 @@
     android:orientation="vertical"
     android:background="@drawable/bg_gradient">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imageViewAed"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-45dp"
+        android:text="Select what to locate below!"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
     <ImageView
         android:id="@+id/imageViewAed"
         android:layout_width="150sp"
@@ -20,7 +33,7 @@
         android:layout_marginLeft="123dp"
         android:layout_marginEnd="138dp"
         android:layout_marginRight="138dp"
-        android:layout_marginBottom="357dp"
+        android:layout_marginBottom="345dp"
         app:srcCompat="@drawable/aed1" />
 
     <ImageView
@@ -70,6 +83,7 @@
         app:menu="@menu/nav_menu">
 
     </android.support.design.widget.BottomNavigationView>
+
 
 
 </RelativeLayout>
