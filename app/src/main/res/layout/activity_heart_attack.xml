@@ -17,7 +17,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Heart_Attack"
+        android:text="Heart Attack"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="30sp" />
 
@@ -32,9 +32,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <Button
                 android:id="@+id/buttonHeartCall"
-                android:layout_width="333dp"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
@@ -42,10 +43,16 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="7dp"
-                android:background="@drawable/rounded_corner"
-                android:text="1. Call emergency number(995), don’t attempt to ignore/tough out the symptoms. "
-                android:gravity="left|center_vertical"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
+                android:background="@drawable/button_shape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="1. Call emergency number(995) "
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
 
             <TextView
                 android:id="@+id/textView11"
@@ -97,7 +104,9 @@
                 android:layout_marginRight="16dp"
                 android:background="@drawable/rounded_corner"
                 android:text="Guide to CPR"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="#3F51B5"/>
+
 
             <Button
                 android:id="@+id/buttonHeartLocate"
@@ -108,10 +117,17 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/rounded_corner"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/button_shape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
                 android:text="5. Source for an AED (link to map)"
-                android:gravity="left|center_vertical"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
 
             <TextView
                 android:id="@+id/textView17"

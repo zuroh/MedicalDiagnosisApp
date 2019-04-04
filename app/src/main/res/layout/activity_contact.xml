@@ -17,35 +17,115 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Emergency Contact"
+        android:text="Contact"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="30sp"
-        tools:text="@string/HomePage" />
+/>
 
-    <ScrollView
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
+        android:layout_height="500dp">
+
+        <Button
             android:id="@+id/call_Ambulance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="104dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Contact Ambulance "
-            android:textSize="32dp"
-             />
+            android:layout_width="230dp"
+            android:layout_height="47dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Call Ambulance(995)"
+
+            android:background="@drawable/button_shape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/call_non_e_Ambulance"
+            android:layout_width="230dp"
+            android:layout_height="47dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="8dp"
+            android:text="Call non-emergency Ambulance"
+
+            android:background="@drawable/button_shape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+
+
+        <Button
+            android:id="@+id/IMH"
+            android:layout_width="230dp"
+            android:layout_height="47dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="112dp"
+            android:layout_marginBottom="8dp"
+            android:text="Call IMH Emergency(Mental Health)"
+
+            android:background="@drawable/button_shape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/SCDF"
+            android:layout_width="230dp"
+            android:layout_height="47dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="164dp"
+            android:layout_marginBottom="8dp"
+            android:text="Call SCDF(emergency)"
+
+            android:background="@drawable/button_shape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/poison_center"
+            android:layout_width="230dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="216dp"
+            android:layout_marginBottom="8dp"
+            android:text="Call drugs and poison(non emergency)"
+            android:layout_centerHorizontal="true"
+
+            android:background="@drawable/button_shape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
 
 
 
 
+    </RelativeLayout>
 
-
-    </ScrollView>
 
     <!--
     <LinearLayout

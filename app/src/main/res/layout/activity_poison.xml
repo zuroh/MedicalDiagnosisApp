@@ -125,7 +125,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <Button
-                android:id="@+id/buttonPoisonLocate"
+
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -135,13 +135,34 @@
                 android:layout_marginRight="16dp"
                 android:background="@drawable/rounded_corner"
                 android:gravity="left|center_vertical"
-                android:text="8. Find a doctor if:  Food poisoning may be from seafood or wild mushrooms.
+                android:text="8. if:  Food poisoning may be from seafood or wild mushrooms.
 Sign of severe dehydration, such as dry mouth, decreased urination, dizziness, fatigue, or increased heart rate or breathing rate.
 Severe belly pain.
 Fever.
 Bloody diarrhea or dark stools.
 Prolonged or bloody vomiting."
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                tools:textColor="@color/design_default_color_primary_dark"/>
+            <Button
+                android:id="@+id/buttonPoisonLocate"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/button_shape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text=" Find nearest polyclinic "
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
 
 
 
