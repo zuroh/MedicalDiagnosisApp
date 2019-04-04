@@ -158,7 +158,7 @@ Prolonged or bloody vomiting."
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="5"
-                android:text=" Call emergency number(995) "
+                android:text=" Find nearest polyclinic "
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
