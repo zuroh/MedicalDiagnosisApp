@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 public class DiagnoseActivityPage1 extends AppCompatActivity {
@@ -80,6 +81,8 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 //get Age and store as a variable to be passed later
                 EditText getAge = findViewById(R.id.enterAge);
                 int victimAge = Integer.parseInt(getAge.getText().toString());
@@ -89,12 +92,30 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
                 EditText getGender = findViewById(R.id.enterGender);
                 String stringGender = getGender.getText().toString();
 
-                //change back
-                Intent moveToDiagnose2 = new Intent(getApplicationContext(),DiagnoseActivityPage2.class);
-                moveToDiagnose2.putExtra(extraVictimAge,victimAge);
-                moveToDiagnose2.putExtra(extraVictimGender,stringGender);
-                moveToDiagnose2.putExtra("diagnoseArr",diagnoseArr);
-                startActivity(moveToDiagnose2);
+                if((victimAge <1) ||(victimAge>100)){
+                    Toast toast1 = Toast.makeText(getApplicationContext(),
+                            "Please re-enter a valid age!",
+                            Toast.LENGTH_SHORT);
+
+                    toast1.show();
+                }
+
+                else if((!stringGender.equals("Male"))&&(!stringGender.equals("Female"))){
+                    Toast toast2 = Toast.makeText(getApplicationContext(),
+                            "Please only enter either 'Male' or 'Female'!",
+                            Toast.LENGTH_SHORT);
+
+                    toast2.show();
+                }
+                else {
+
+                    //change back
+                    Intent moveToDiagnose2 = new Intent(getApplicationContext(), DiagnoseActivityPage2.class);
+                    moveToDiagnose2.putExtra(extraVictimAge, victimAge);
+                    moveToDiagnose2.putExtra(extraVictimGender, stringGender);
+                    moveToDiagnose2.putExtra("diagnoseArr", diagnoseArr);
+                    startActivity(moveToDiagnose2);
+                }
 
             }
         });

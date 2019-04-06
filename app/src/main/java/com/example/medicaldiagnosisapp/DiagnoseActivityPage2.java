@@ -290,7 +290,7 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                             public void onClick(View v){
                                 boolean checked = ((CheckBox)v).isChecked();
                                 if(checked){
-                                    diagnoseArr[3]=diagnoseArr[3]+1;
+                                    diagnoseArr[3]=diagnoseArr[3]+2;
                                     diagnoseArr[6]=diagnoseArr[6]+1;
                                     diagnoseArr[7]=diagnoseArr[7]+1;
 
@@ -305,7 +305,7 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                             public void onClick(View v){
                                 boolean checked = ((CheckBox)v).isChecked();
                                 if(checked){
-                                    diagnoseArr[3]=diagnoseArr[3]+1;
+                                    diagnoseArr[3]=diagnoseArr[3]+2;
                                     diagnoseArr[7]=diagnoseArr[7]+1;
 
                                 }
@@ -394,7 +394,7 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                             public void onClick(View v){
                                 boolean checked = ((CheckBox)v).isChecked();
                                 if(checked){
-                                    diagnoseArr[3]=diagnoseArr[3]+1;
+                                    diagnoseArr[3]=diagnoseArr[3]+2;
                                     diagnoseArr[5]=diagnoseArr[5]+1;
 
                                 }
@@ -518,11 +518,11 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                 double MaleStrokeRatio = MaleStroke/FemaleStroke;
                 double FemaleStrokeRatio = FemaleStroke/MaleStroke;
 
-                if((victimGender == "Male")||victimGender == "male"){
+                if((victimGender.equals("Male")) ||(victimGender.equals("male"))){
                     diagnoseArr[3]=diagnoseArr[3]*MaleHARatio;
                     diagnoseArr[4]=diagnoseArr[4]*MaleStrokeRatio;
                 }
-                else{
+                else if((victimGender.equals("Female"))||(victimGender.equals("female"))){
                     diagnoseArr[3]=diagnoseArr[3]*FemaleHARatio;
                     diagnoseArr[4]=diagnoseArr[4]*FemaleStrokeRatio;
                 }

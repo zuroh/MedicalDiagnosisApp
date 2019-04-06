@@ -70,21 +70,28 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
         final int victimAge = extras.getInt("victimAge");
 
         //testing array values output
-        //TextView testArray2 = (TextView) findViewById(R.id.testarray2);
-        //int arraylength = diagnoseArr.length;
+        /*
+        TextView testArray2 = (TextView) findViewById(R.id.testarray2);
+        int arraylength = diagnoseArr.length;
 
-        //for(int i=0;i<arraylength;i++){
-        //    String temp = Double.toString(diagnoseArr[i]);
-        //    testArray2.append(temp);
-        //}
+        for(int i=0;i<arraylength;i++){
+            String temp = Double.toString(diagnoseArr[i]);
+            testArray2.append(temp);
+        }
+        */
+
+        int firstindex=3;
+        int secondindex=3;
+        int thirdindex=3;
 
         //Check for top 3 conditions based on array.
+        /*
         double first=diagnoseArr[3];
         double second=diagnoseArr[3];
         double third=diagnoseArr[3];
-        int firstindex=0;
-        int secondindex=0;
-        int thirdindex=0;
+        int firstindex=3;
+        int secondindex=3;
+        int thirdindex=3;
         for(int j=3;j<10;j++){
             if(first<diagnoseArr[j]) {
                 first = diagnoseArr[j];
@@ -109,6 +116,74 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
         }
         diagnoseArr[firstindex]=tempfirst;
         diagnoseArr[secondindex]=tempsecond;
+        */
+
+        int z ;
+        double first,second,third;
+        first = second = third = Double.MIN_VALUE;
+        for(z=3;z<10;z++){
+            if (diagnoseArr[z] > first)
+            {
+                third = second;
+                second = first;
+                first = diagnoseArr[z];
+            }
+
+            /* If arr[i] is in between first and
+            second then update second  */
+            else if (diagnoseArr[z] > second)
+            {
+                third = second;
+                second = diagnoseArr[z];
+            }
+
+            else if (diagnoseArr[z] > third)
+                third = diagnoseArr[z];
+        }
+        int j=0;
+        int k = 0;
+        int l =0;
+        while (j < 10) {
+
+            // if the i-th element is t
+            // then return the index
+            if (diagnoseArr[j] == first) {
+                firstindex = j;
+                break;
+            }
+            else {
+                j = j + 1;
+            }
+        }
+
+        while (k < 10) {
+
+            // if the i-th element is t
+            // then return the index
+            if (diagnoseArr[k] == second) {
+                secondindex = k;
+                break;
+            }
+            else {
+                k = k + 1;
+            }
+        }
+
+        while (l < 10) {
+
+            // if the i-th element is t
+            // then return the index
+            if (diagnoseArr[l] == third) {
+                thirdindex = l;
+                break;
+            }
+            else {
+                l = l + 1;
+            }
+        }
+
+
+
 
         Resources res = getResources();
         String[] HeartAttackSS = res.getStringArray(R.array.HeartAttackSS);
@@ -891,11 +966,11 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                 double MaleStrokeRatio = MaleStroke/FemaleStroke;
                 double FemaleStrokeRatio = FemaleStroke/MaleStroke;
 
-                if((victimGender == "Male")||victimGender == "male"){
+                if((victimGender.equals("Male")) ||(victimGender.equals("male"))){
                     diagnoseArr[3]=diagnoseArr[3]*MaleHARatio;
                     diagnoseArr[4]=diagnoseArr[4]*MaleStrokeRatio;
                 }
-                else{
+                else if((victimGender.equals("Female"))||(victimGender.equals("female"))){
                     diagnoseArr[3]=diagnoseArr[3]*FemaleHARatio;
                     diagnoseArr[4]=diagnoseArr[4]*FemaleStrokeRatio;
                 }
