@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 public class DiagnoseActivityPage1 extends AppCompatActivity {
@@ -80,21 +80,47 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 //get Age and store as a variable to be passed later
                 EditText getAge = findViewById(R.id.enterAge);
-                int victimAge = Integer.parseInt(getAge.getText().toString());
-
+                String stringAge = getAge.getText().toString();
 
                 //get Gender and store as a variable to be passed later
                 EditText getGender = findViewById(R.id.enterGender);
                 String stringGender = getGender.getText().toString();
 
-                //change back
-                Intent moveToDiagnose2 = new Intent(getApplicationContext(),DiagnoseActivityPage2.class);
-                moveToDiagnose2.putExtra(extraVictimAge,victimAge);
-                moveToDiagnose2.putExtra(extraVictimGender,stringGender);
-                moveToDiagnose2.putExtra("diagnoseArr",diagnoseArr);
-                startActivity(moveToDiagnose2);
+                if (stringAge.equals("")) {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Please enter your age!",
+                            Toast.LENGTH_SHORT);
+
+                    toast.show();
+                }
+                else if(Integer.parseInt(stringAge) < 1 || Integer.parseInt(stringAge) > 100) {
+                    Toast toast1 = Toast.makeText(getApplicationContext(),
+                            "Please re-enter a valid age!",
+                            Toast.LENGTH_SHORT);
+
+                    toast1.show();
+                }
+
+                else if((!stringGender.toLowerCase().equals("male"))&&(!stringGender.toLowerCase().equals("female"))){
+                    Toast toast2 = Toast.makeText(getApplicationContext(),
+                            "Please only enter either 'Male' or 'Female'!",
+                            Toast.LENGTH_SHORT);
+
+                    toast2.show();
+                }
+                else {
+
+                    //change back
+                    Intent moveToDiagnose2 = new Intent(getApplicationContext(), DiagnoseActivityPage2.class);
+                    moveToDiagnose2.putExtra(extraVictimAge, Integer.parseInt(getAge.getText().toString()));
+                    moveToDiagnose2.putExtra(extraVictimGender, stringGender);
+                    moveToDiagnose2.putExtra("diagnoseArr", diagnoseArr);
+                    startActivity(moveToDiagnose2);
+                }
 
             }
         });
