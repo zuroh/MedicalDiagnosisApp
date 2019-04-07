@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.medicaldiagnosisapp.ApiParser.JsonParse;
-import com.example.medicaldiagnosisapp.entity.Aed;
+import com.example.medicaldiagnosisapp.apiParser.JsonParse;
+import com.example.medicaldiagnosisapp.entities.Aed;
 
 import org.json.JSONArray;
 import org.json.JSONException;

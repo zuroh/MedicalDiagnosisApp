@@ -4,14 +4,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.medicaldiagnosisapp.ApiParser.JsonParse;
-import com.example.medicaldiagnosisapp.entity.Chas;
-import com.google.gson.JsonArray;
+import com.example.medicaldiagnosisapp.apiParser.JsonParse;
+import com.example.medicaldiagnosisapp.entities.Chas;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

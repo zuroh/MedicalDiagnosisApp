@@ -1,12 +1,11 @@
 package com.example.medicaldiagnosisapp.utilities;
 
 import android.content.Context;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.medicaldiagnosisapp.ApiParser.KmlParser;
-import com.example.medicaldiagnosisapp.entity.Poly;
+import com.example.medicaldiagnosisapp.apiParser.KmlParser;
+import com.example.medicaldiagnosisapp.entities.Poly;
 
 import org.w3c.dom.Document;
 
@@ -76,7 +75,7 @@ public class PolyAsyncTask extends AsyncTask<Void, Void, Poly[]> {
             double lng = KmlParser.getLongP(doc, i);
 
             polys[i] = new Poly (lat, lng,  KmlParser.getMarkerTitleP(doc, i),
-                    KmlParser.getMarkerInfoP(doc, i), "");
+                    KmlParser.getMarkerInfoP(doc, i));
             Log.i ("tag", markerInfo + String.valueOf(lat));
         }
 

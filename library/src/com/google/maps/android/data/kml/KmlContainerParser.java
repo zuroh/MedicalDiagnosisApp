@@ -117,7 +117,7 @@ import static org.xmlpull.v1.XmlPullParser.START_TAG;
     /**
      * Assigns properties given as an extended data element, which are obtained from an
      * XmlPullParser and stores it in a container, Untyped data only, no simple data
-     * or schema, and entity replacements of the form $[dataName] are unsupported.
+     * or schema, and entities replacements of the form $[dataName] are unsupported.
      */
     private static void setExtendedDataProperties(XmlPullParser parser,
             HashMap<String, String> mContainerProperties)
