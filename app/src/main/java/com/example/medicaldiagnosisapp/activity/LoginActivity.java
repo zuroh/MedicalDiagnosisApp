@@ -19,6 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Login Activity that allows a user to access administrative functions if that
+ * user is verified to be an admin.
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailField, passwordField;
@@ -27,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +91,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks the user's input and determine if it is empty/null
+     * Checks the user's input and determine if he/she is an admin
+     */
     private void emailLogin() {
         progressBar.setVisibility(View.VISIBLE);
 
@@ -117,6 +130,10 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Starts the User Interface for user input and progress bar
+     * for unsuccessful verification
+     */
     private void startUI() {
         emailField = findViewById(R.id.email);
         passwordField = findViewById(R.id.password);

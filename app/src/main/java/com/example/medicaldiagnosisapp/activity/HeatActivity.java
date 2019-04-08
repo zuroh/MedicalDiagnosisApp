@@ -11,8 +11,17 @@ import android.widget.Button;
 
 import com.example.medicaldiagnosisapp.R;
 
+/**
+ * Heat Activity that display the options a person suspected of
+ * dehydration or stroke due to heat should undertake
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class HeatActivity extends AppCompatActivity {
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

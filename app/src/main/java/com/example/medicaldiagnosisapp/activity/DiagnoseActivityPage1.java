@@ -14,11 +14,20 @@ import android.widget.Toast;
 
 import com.example.medicaldiagnosisapp.R;
 
-
+/**
+ * Diagnose Activity 1 that asks for information about the person in
+ * peril in order to accurately diagnose and track the the diagnosis
+ * clusters for the government
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class DiagnoseActivityPage1 extends AppCompatActivity {
     public static final String extraVictimGender = "com.example.medicaldiagnosisapp.extraVictimGender";
     public static final String extraVictimAge = "com.example.medicaldiagnosisapp.extraVictimAge";
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,8 +171,6 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
                 });
 
         //Bottom navigation end//
-
-
 
     }
 }

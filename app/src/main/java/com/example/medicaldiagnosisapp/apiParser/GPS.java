@@ -10,6 +10,10 @@ import android.util.Log;
 
 import com.example.medicaldiagnosisapp.interfaces.IGPSInterface;
 
+/**
+ * GPS that takes charge of current location handling
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class GPS {
     //instantiate interface class for long lat coordinates.
     private IGPSInterface main;

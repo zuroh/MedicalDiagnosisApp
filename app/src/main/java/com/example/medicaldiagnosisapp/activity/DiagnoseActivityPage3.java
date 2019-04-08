@@ -29,17 +29,28 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Diagnosis Activity 3 that asks for further symptoms the person in peril may have
+ * The symptoms in this page is generated dynamically based on Diagnosis Activity 2
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSInterface {
 
     private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
     private GPS gps;
 
+    /**
+     * When the activity resumes, resume tracking of current location
+     */
     @Override
     public void onResume() {
         if (!gps.isRunning()) gps.resumeGPS();
         super.onResume();
     }
 
+    /**
+     * When the activity stops, stop tracking of current location
+     */
     @Override
     public void onStop() {
         // Disconnecting the client invalidates it.
@@ -48,6 +59,11 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSInte
         super.onStop();
     }
 
+    /**
+     * Updates the current location if it's changed
+     * @param longitude
+     * @param latitude used to contains the long lat of the current location
+     */
     @Override
     public void locationChanged(double longitude, double latitude) {
         Log.i("FieldLayout_StartAct", "locationChanged");
@@ -55,6 +71,10 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSInte
         currentLocation.setLongitude(longitude);
     }
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,54 +91,9 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSInte
         final String victimGender = extras.getString("victimGender");
         final int victimAge = extras.getInt("victimAge");
 
-        //testing array values output
-        /*
-        TextView testArray2 = (TextView) findViewById(R.id.testarray2);
-        int arraylength = diagnoseArr.length;
-
-        for(int i=0;i<arraylength;i++){
-            String temp = Double.toString(diagnoseArr[i]);
-            testArray2.append(temp);
-        }
-        */
-
         int firstindex=3;
         int secondindex=3;
         int thirdindex=3;
-
-        //Check for top 3 conditions based on array.
-        /*
-        double first=diagnoseArr[3];
-        double second=diagnoseArr[3];
-        double third=diagnoseArr[3];
-        int firstindex=3;
-        int secondindex=3;
-        int thirdindex=3;
-        for(int j=3;j<10;j++){
-            if(first<diagnoseArr[j]) {
-                first = diagnoseArr[j];
-                firstindex=j;
-            }
-        }
-        double tempfirst = diagnoseArr[firstindex];
-        diagnoseArr[firstindex]=0;
-        for(int j=3;j<10;j++){
-            if(second<diagnoseArr[j]) {
-                second = diagnoseArr[j];
-                secondindex=j;
-            }
-        }
-        double tempsecond = diagnoseArr[secondindex];
-        diagnoseArr[secondindex] = 0;
-        for(int j=3;j<10;j++){
-            if(third<diagnoseArr[j]) {
-                third = diagnoseArr[j];
-                thirdindex=j;
-            }
-        }
-        diagnoseArr[firstindex]=tempfirst;
-        diagnoseArr[secondindex]=tempsecond;
-        */
 
         int z ;
         double first,second,third;
@@ -910,8 +885,6 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSInte
         finalDiagnoseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveToFinalDiagnosis = new Intent(getApplicationContext(),FinalDiagnosisActivity.class);
-                //startActivity(moveToFinalDiagnosis);
                 Intent moveToHeart = new Intent(getApplicationContext(),HeartAttackActivity.class);
                 Intent moveToStroke = new Intent(getApplicationContext(),StrokeActivity.class);
                 Intent moveToPoison = new Intent(getApplicationContext(),PoisonActivity.class);

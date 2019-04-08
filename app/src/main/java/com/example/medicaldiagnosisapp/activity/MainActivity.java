@@ -28,6 +28,12 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Main Activity of the application
+ * The starting page of the application
+ * Most functions can be accessed from this page
+ * The fun fact is implemented here
+ */
 public class MainActivity extends AppCompatActivity {
 
     private TextView funView;
@@ -43,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
     private int conditionId = 0;
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Starts a timer so that the application knows when to refresh the fun fact
+     */
     public void startTimer(){
 
         mTimer = new Timer();
@@ -173,6 +186,10 @@ public class MainActivity extends AppCompatActivity {
         mTimer.schedule(mTimerTask, 1, 30000);
     }
 
+    /**
+     * Tracks which fun fact has been displayed so far so that
+     * no same fun fact is displayed sequentially
+     */
     public void fillTracker(){
         int initValue = 1;
         funFactTracker.put("Cancer", initValue);
@@ -197,6 +214,12 @@ public class MainActivity extends AppCompatActivity {
         funFactTracker.put("Cerebrovascular diseases (Including stroke) count", 5);
     }
 
+    /**
+     * Displays the fun fact dynamically
+     * Queries the Google fire base
+     * @param tag the illness which the fun fact is related to
+     * @param id the corresponding integer of the fun fact id
+     */
     public void displayFunFact(String tag, int id){
         final int funFactId = id;
 

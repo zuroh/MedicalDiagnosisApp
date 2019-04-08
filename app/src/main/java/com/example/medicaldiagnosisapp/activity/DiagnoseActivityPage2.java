@@ -28,6 +28,12 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+/**
+ * Diagnosis Activity 2 that asks for further symptoms the person in peril may have
+ * The symptoms in this page is generated dynamically based on Diagnosis Activity 1
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSInterface {
 
     private Location currentLocation = new Location (LocationManager.GPS_PROVIDER);
@@ -65,6 +71,10 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSInte
         currentLocation.setLongitude(longitude);
     }
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,21 +93,6 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSInte
 
         ScrollView hsv1 = (ScrollView)findViewById(R.id.hsv1);
         LinearLayout ll = (LinearLayout)hsv1.findViewById(R.id.hsvLayout1);
-
-        //TextView testGender = (TextView) findViewById(R.id.testgender);
-        //TextView testAge = (TextView) findViewById(R.id.testage);
-        //TextView testArray = (TextView) findViewById(R.id.arraytestoutput);
-        //testGender.setText(victimGender);
-        //testAge.setText("" + victimAge);
-
-        //testing array values output
-        //int arraylength = diagnoseArr.length;
-
-       // for(int i=0;i<arraylength;i++){
-        //    String temp = Double.toString(diagnoseArr[i]);
-       //     testArray.append(temp);
-       // }
-        //Test to dynamically add checkboxes
 
         Resources res = getResources();
         String[] NonPhysicalGS = res.getStringArray(R.array.NonPhysicalGS);
@@ -464,7 +459,6 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSInte
         finalDiagnoseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveToFinalDiagnosis = new Intent(getApplicationContext(),FinalDiagnosisActivity.class);
                 Intent moveToHeart = new Intent(getApplicationContext(),HeartAttackActivity.class);
                 Intent moveToStroke = new Intent(getApplicationContext(),StrokeActivity.class);
                 Intent moveToPoison = new Intent(getApplicationContext(),PoisonActivity.class);

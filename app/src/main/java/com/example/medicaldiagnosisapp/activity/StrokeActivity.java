@@ -11,8 +11,17 @@ import android.widget.Button;
 
 import com.example.medicaldiagnosisapp.R;
 
+/**
+ * Stroke Activity that display the options a person suspected of
+ * Stroke should undertake
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class StrokeActivity extends AppCompatActivity {
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

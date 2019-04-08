@@ -63,13 +63,5 @@ public class HelpActivity extends AppCompatActivity {
                 startActivity(moveToLogin);
             }
         });
-        Button changeLanguagePageButton = findViewById(R.id.changeLanguagePageButton);
-        changeLanguagePageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToChangeLanguage = new Intent(getApplicationContext(), ChangeLanguageActivity.class);
-                startActivity(moveToChangeLanguage);
-            }
-        });
     }
 }

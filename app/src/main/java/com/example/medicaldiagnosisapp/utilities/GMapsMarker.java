@@ -5,7 +5,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * The type G maps marker.
+ * GMapsMarker creates a marker using the parameters given
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
  */
 public class GMapsMarker {
 

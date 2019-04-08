@@ -1,23 +1,32 @@
 package com.example.medicaldiagnosisapp.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.example.medicaldiagnosisapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * Admin Activity allows the user to specify another filter
+ * for the data logs - by regions
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class AdminActivity3 extends AppCompatActivity {
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

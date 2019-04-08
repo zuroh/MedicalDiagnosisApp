@@ -1,8 +1,6 @@
 package com.example.medicaldiagnosisapp.apiParser;
 
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -14,6 +12,12 @@ import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+/**
+ * KmlParser parses a kml file, creating a document for easy usage in java
+ * Specific methods are specified to obtain application relevant information
+ * from the document.
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class KmlParser {
 
     /**
@@ -33,95 +37,57 @@ public class KmlParser {
         return doc;
     }
 
-    public static Location getCoordinates (Document doc, int index) {
-        NodeList nListC = doc.getElementsByTagName("Point");
-        Node nodeC = nListC.item(index);
-        Element element3 = (Element) nodeC;
-        String coordinates = getValue("coordinates", element3, 0);
-        String [] parts = coordinates.split(",");
-        double lon = Double.valueOf(parts[0]); double lat = Double.valueOf(parts[1]);
-        Location loc = new Location(LocationManager.GPS_PROVIDER);
-        loc.setLongitude(lon); loc.setLatitude(lat);
-        return loc;
-    }
-
-    public static String getMarkerInfoName (Document doc, int KMLIndex, int infoIndex) {
-        //get the right KML_id parent node
-        NodeList nListC = doc.getElementsByTagName("SchemaData");
-        Node nodeC = nListC.item(KMLIndex);
-        Element element = (Element) nodeC;
-
-        //avoid java.lang.NullPointerException
-        if (element != null) {
-            Node node = element.getElementsByTagName("SimpleData").item(infoIndex);
-            Element element1 = (Element) node;
-            return element1.getAttributes().getNamedItem("name").getNodeValue();
-        }
-        else
-            return "";
-    }
-
-    public static String getMarkerInfoValue (Document doc, int KMLIndex, int infoIndex) {
-        //get the right KML_id parent node
-        NodeList nListC = doc.getElementsByTagName("SchemaData");
-        Node nodeC = nListC.item(KMLIndex);
-        Element element = (Element) nodeC;
-
-        if (element != null) {
-            NodeList nodeList = element.getElementsByTagName("SimpleData").item(infoIndex).getChildNodes();
-            Node node = nodeList.item(0);
-            return node.getNodeValue();
-        }
-        else
-            return "";
-    }
-
-    public static String getValue(String tag, Element element, int index) {
-        NodeList nodeList = element.getElementsByTagName(tag).item(index).getChildNodes();
-        Node node = nodeList.item(0);
-        return node.getNodeValue();
-    }
-
+    /**
+     * Gets the number of Nodes with specified name
+     * @param doc the KML document
+     * @param string the specified name to search for
+     * @return number of nodes
+     */
     public static int getNoNodes (Document doc, String string) {
         NodeList nList = doc.getElementsByTagName(string);
         return nList.getLength();
     }
 
-    public static Location getCoordinatesP (Document doc, int KMLindex) {
-        NodeList nListC = doc.getElementsByTagName("Coordinates");
-        Node nodeC = nListC.item(KMLindex);
-        Element element3 = (Element) nodeC;
-
-        String coordinates = element3.getTextContent();//getValue("coordinates", element3, 0);
-        String [] parts = coordinates.split(",");
-        double lon = Double.valueOf(parts[0]); double lat = Double.valueOf(parts[1]);
-        Location loc = new Location(LocationManager.GPS_PROVIDER);
-        loc.setLongitude(lon); loc.setLatitude(lat);
-        return loc;
-    }
-
+    /**
+     * Gets the relevant information for Polyclinic (Longitude)
+     * @param doc the KML document
+     * @param KMLindex the index where the marker information is contained in the document
+     * @return lon the longitude in double
+     */
     public static double getLongP (Document doc, int KMLindex) {
         NodeList nListC = doc.getElementsByTagName("Coordinates");
         Node nodeC = nListC.item(KMLindex);
         Element element3 = (Element) nodeC;
 
-        String coordinates = element3.getTextContent();//getValue("coordinates", element3, 0);
+        String coordinates = element3.getTextContent();
         String [] parts = coordinates.split(",");
         double lon = Double.valueOf(parts[0]);
         return lon;
     }
 
+    /**
+     * Gets the relevant information for Polyclinic (Latitude)
+     * @param doc the KML document
+     * @param KMLindex the index where the marker information is contained in the document
+     * @return lat the latitude in double
+     */
     public static double getLatP (Document doc, int KMLindex) {
         NodeList nListC = doc.getElementsByTagName("Coordinates");
         Node nodeC = nListC.item(KMLindex);
         Element element3 = (Element) nodeC;
 
-        String coordinates = element3.getTextContent();//getValue("coordinates", element3, 0);
+        String coordinates = element3.getTextContent();
         String [] parts = coordinates.split(",");
         double lat = Double.valueOf(parts[1]);
         return lat;
     }
 
+    /**
+     * Gets the relevant information for Polyclinic (Name)
+     * @param doc the KML document
+     * @param KMLIndex the index where the marker information is contained in the document
+     * @return the marker information as a String. An empty String is returned if null.
+     */
     public static String getMarkerTitleP (Document doc, int KMLIndex) {
         //get the right KML_id parent node
         NodeList nListC = doc.getElementsByTagName("Placemark");
@@ -137,6 +103,12 @@ public class KmlParser {
             return "";
     }
 
+    /**
+     * Gets the relevant information for Polyclinic (Telephone number)
+     * @param doc the KML document
+     * @param KMLIndex the index where the marker information is contained in the document
+     * @return the marker information as a String. An empty String is returned if null.
+     */
     public static String getMarkerInfoP (Document doc, int KMLIndex) {
         //get the right KML_id parent node
         NodeList nListC = doc.getElementsByTagName("Placemark");

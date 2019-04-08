@@ -12,12 +12,16 @@ import android.widget.ImageView;
 
 import com.example.medicaldiagnosisapp.R;
 
+/**
+ * Locate Activity with the commonly required amenities that are health related.
+ * Its corresponding amenities can be accessed through their respective buttons.
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class LocateActivity extends AppCompatActivity {
 
     /**
-     * On Activity creation, restores its prior information if available
-     *
-     * @param savedInstanceState contains previous instance if available
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +31,6 @@ public class LocateActivity extends AppCompatActivity {
         ImageView imageViewChas = findViewById(R.id.imageViewChas);
         ImageView imageViewPolyclinic = findViewById(R.id.imageViewPolyclinic);
 
-        /**
-         * Check for user button click
-         * Goes to the specified activity
-         */
         imageViewAed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

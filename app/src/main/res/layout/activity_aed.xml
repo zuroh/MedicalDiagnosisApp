@@ -34,6 +34,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        />
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

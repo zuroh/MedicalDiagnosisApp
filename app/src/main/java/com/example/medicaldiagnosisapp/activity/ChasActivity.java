@@ -29,6 +29,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
+/**
+ * Chas Activity allows the user to find the Chas Clinic
+ * that's the nearest to them
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class ChasActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, ChasAsyncTask.ChasTaskCallback {
 
     private static final int LOCATION_REQUEST_CODE = 991;
@@ -37,6 +42,10 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FusedLocationProviderClient mFusedLocationClient;
     private ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +59,12 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    /**
+     * Checks whether permissions to access locations has been enabled for the phone
+     * @param requestCode the location request code required in integer
+     * @param permissions the resulting string after querying the phone for permissions enabled
+     * @param grantResults the result of the function; successful or unsuccessful
+     */
     @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -75,8 +90,7 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * This is where we can add markers or lines, add listeners or move the camera.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -118,10 +132,19 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    /**
+     * Part of AsynTask implementation
+     * Executed before AsynTask starts
+     */
     @Override
     public void onPreExecuteChasTask() {
     }
 
+    /**
+     * Part of AsynTask implementation
+     * Executed after AsynTask starts
+     * @param chass Object array that contain all the markers to add them
+     */
     @Override
     public void onPostExecuteChasTask(Chas[] chass) {
         for (Chas chas : chass) {
@@ -133,6 +156,12 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    /**
+     * Checks for user button click on "Find Nearest",
+     * determines the nearest marker to user's location,
+     * selects it and zoom in on that marker
+     * @param v View that accepts user input
+     */
     public void buttonClick(View v) {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -152,30 +181,36 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    /**
+     * Finds the nearest marker from the user's current location
+     * @param myLoc the Location of user's current location
+     * @return nearestLoc the Latlng of the marker that is nearest
+     */
     private LatLng findNearest(Location myLoc) {
         LatLng nearestLoc = new LatLng(0, 0);
         LatLng myLatLng = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());
-//        Log.d(TAG, "my latlng = " + myLatLng.latitude + ", " + myLatLng.longitude);
         Marker nearestMark = null;
 
         for (Marker marker : mMarkerArray) {
             LatLng temp = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
-//            Log.d(TAG, "latlng = " + temp.latitude + ", " + temp.longitude);
             if (getDistance(temp, myLatLng) <= getDistance(nearestLoc, myLatLng)) {
                 nearestLoc = temp;
-//                Log.d(TAG, "current nearest latlng = " + nearestLoc.latitude + ", " + nearestLoc.longitude);
                 nearestMark = marker;
             }
         }
-//        Log.d(TAG, "my latlng = " + myLatLng.latitude + ", " + myLatLng.longitude);
 
-//        Log.d(TAG, "actual nearest latlng = " + nearestLoc.latitude + ", " + nearestLoc.longitude);
         if (nearestMark != null) {
             nearestMark.showInfoWindow();
         }
         return nearestLoc;
     }
 
+    /**
+     * Determines the distance between two markers
+     * @param LatLng1 Location 1 in latitude and longitude
+     * @param LatLng2 Location 2 in latitude and longitude
+     * @return distance the double that contains the distance
+     */
     public double getDistance(LatLng LatLng1, LatLng LatLng2) {
         double distance = 0;
         Location locationA = new Location("A");
@@ -185,10 +220,13 @@ public class ChasActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationB.setLatitude(LatLng2.latitude);
         locationB.setLongitude(LatLng2.longitude);
         distance = locationA.distanceTo(locationB);
-//        Log.d(TAG, "distance = " + distance);
         return distance;
     }
 
+    /**
+     * Adapter for the Info Window in Google Maps
+     * Defined in this class to extract title and snippet for display in google map fragment
+     */
     public class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         private final View myContentsView;

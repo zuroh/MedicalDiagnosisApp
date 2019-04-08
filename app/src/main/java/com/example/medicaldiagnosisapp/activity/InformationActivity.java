@@ -11,8 +11,18 @@ import android.widget.Button;
 
 import com.example.medicaldiagnosisapp.R;
 
+/**
+ * Information Activity that display the 8 common illnesses that we have
+ * selected. Its respective activities containing the diagnosis
+ * can be accessed from this activity using the buttons.
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class InformationActivity extends AppCompatActivity {
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

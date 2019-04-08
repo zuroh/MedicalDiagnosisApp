@@ -42,7 +42,6 @@
         <activity android:name=".activity.ChasActivity" />
         <activity android:name=".activity.AedActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.ChangeLanguageActivity" />
         <activity android:name=".activity.HeatActivity" />
         <activity android:name=".activity.PoisonActivity" />
         <activity android:name=".activity.AllergicActivity" />
@@ -51,7 +50,6 @@
         <activity android:name=".activity.BurnActivity" />
         <activity android:name=".activity.HeartAttackActivity" />
         <activity android:name=".activity.StrokeActivity" />
-        <activity android:name=".activity.FinalDiagnosisActivity" />
         <activity android:name=".activity.DiagnoseActivityPage3" />
         <activity android:name=".activity.HelpActivity" />
         <activity android:name=".activity.InformationActivity" />

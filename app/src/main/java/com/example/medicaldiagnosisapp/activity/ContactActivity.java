@@ -17,9 +17,18 @@ import android.widget.Toast;
 
 import com.example.medicaldiagnosisapp.R;
 
+/**
+ * Contact Activity that display the common numbers a person should contact
+ * during an emergency
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class ContactActivity extends AppCompatActivity {
     private static final int REQUEST_CALL = 1;
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +82,9 @@ public class ContactActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * The implementation of the calling of various emergency services
+     */
     private void makePhoneCall() {
         String number = "995"; //string array can be introduced if more emergency numbers are to be added
         if (ContextCompat.checkSelfPermission(ContactActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -83,6 +95,12 @@ public class ContactActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks for permission to make a phone call
+     * @param requestCode Integer corresponding to the Phone dial function code
+     * @param permissions String containing the permissions the app is allowed to have
+     * @param grantResults Result of the check
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CALL) {

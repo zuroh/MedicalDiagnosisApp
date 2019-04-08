@@ -1,5 +1,10 @@
 package com.example.medicaldiagnosisapp.interfaces;
 
+/**
+ * IGPSInterface is an interface for finding the current location as
+ * only longitude and latitude is concerned
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public interface IGPSInterface {
 
     /**

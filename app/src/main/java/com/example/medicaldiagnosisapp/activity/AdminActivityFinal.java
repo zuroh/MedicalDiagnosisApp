@@ -34,6 +34,11 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Admin Activity Final displays the data logs based on the filters
+ * selected in the past few Admin Activities 1,2,3
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class AdminActivityFinal extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private FirebaseDatabase mDatabase;
@@ -44,6 +49,10 @@ public class AdminActivityFinal extends AppCompatActivity implements OnMapReadyC
     private GoogleMap mMap;
     private ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +143,12 @@ public class AdminActivityFinal extends AppCompatActivity implements OnMapReadyC
 
     }
 
-    //Gmap View
+    /**
+     * Checks whether permissions to access locations has been enabled for the phone
+     * @param requestCode the location request code required in integer
+     * @param permissions the resulting string after querying the phone for permissions enabled
+     * @param grantResults the result of the function; successful or unsuccessful
+     */
     @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -180,6 +194,10 @@ public class AdminActivityFinal extends AppCompatActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * Adapter for the Info Window in Google Maps
+     * Defined in this class to extract title and snippet for display in google map fragment
+     */
     public class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         private final View myContentsView;

@@ -10,16 +10,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 
+import com.example.medicaldiagnosisapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import com.example.medicaldiagnosisapp.R;
-import com.google.firebase.auth.FirebaseAuth;
-
+/**
+ * Admin Activity 2 allows the user to specify another filter
+ * for the data logs - by dates
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class AdminActivity2 extends AppCompatActivity {
 
+    /**
+     * creates the lifecycle of an android activity
+     * @param savedInstanceState Bundle is passed to enable the past lifecycle of the activity to be resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
