@@ -146,6 +146,57 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSInte
             }
         }
 
+        int z ;
+        double first,second,third;
+        first = second = third = Double.MIN_VALUE;
+        for(z=3;z<10;z++){
+            if (diagnoseArr[z] > first)
+            {
+                third = second;
+                second = first;
+                first = diagnoseArr[z];
+            }
+
+            /* If arr[i] is in between first and
+            second then update second  */
+            else if (diagnoseArr[z] > second)
+            {
+                third = second;
+                second = diagnoseArr[z];
+            }
+
+            else if (diagnoseArr[z] > third)
+                third = diagnoseArr[z];
+        }
+        int j=0;
+        int k = 0;
+        int l =0;
+        while (j < 10) {
+
+            // if the i-th element is t
+            // then return the index
+            if (diagnoseArr[j] == first) {
+                firstindex = j;
+                break;
+            }
+            else {
+                j = j + 1;
+            }
+        }
+
+        while (k < 10) {
+
+            // if the i-th element is t
+            // then return the index
+            if (diagnoseArr[k] == second) {
+                secondindex = k;
+                break;
+            }
+            else {
+                k = k + 1;
+            }
+        }
+
         while (l < 10) {
 
             // if the i-th element is t
