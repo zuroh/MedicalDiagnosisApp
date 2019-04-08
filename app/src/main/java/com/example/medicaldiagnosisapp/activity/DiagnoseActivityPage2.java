@@ -513,11 +513,11 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSInte
                 double MaleStrokeRatio = MaleStroke/FemaleStroke;
                 double FemaleStrokeRatio = FemaleStroke/MaleStroke;
 
-                if((victimGender.equals("Male")) ||(victimGender.equals("male"))){
+                if((victimGender.toLowerCase().equals("male"))){
                     diagnoseArr[3]=diagnoseArr[3]*MaleHARatio;
                     diagnoseArr[4]=diagnoseArr[4]*MaleStrokeRatio;
                 }
-                else if((victimGender.equals("Female"))||(victimGender.equals("female"))){
+                else if((victimGender.toLowerCase().equals("female"))){
                     diagnoseArr[3]=diagnoseArr[3]*FemaleHARatio;
                     diagnoseArr[4]=diagnoseArr[4]*FemaleStrokeRatio;
                 }
