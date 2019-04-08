@@ -4,12 +4,12 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -24,6 +24,7 @@ import com.example.medicaldiagnosisapp.R;
  */
 public class ContactActivity extends AppCompatActivity {
     private static final int REQUEST_CALL = 1;
+    private static String contactNumbers [] = new String[] {"995","1777", "63892000", "18002865555", "64239119"};
 
     /**
      * creates the lifecycle of an android activity
@@ -77,7 +78,39 @@ public class ContactActivity extends AppCompatActivity {
         callAmbulance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makePhoneCall();
+                makePhoneCall(0);
+            }
+        });
+
+        TextView callNonEAmbulance = findViewById(R.id.call_non_e_Ambulance);
+        callNonEAmbulance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall(1);
+            }
+        });
+
+        TextView callIMH = findViewById(R.id.IMH);
+        callIMH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall(2);
+            }
+        });
+
+        TextView callSCDF = findViewById(R.id.SCDF);
+        callSCDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall(3);
+            }
+        });
+
+        TextView callPoisonCenter = findViewById(R.id.poison_center);
+        callPoisonCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall(4);
             }
         });
     }
@@ -85,14 +118,13 @@ public class ContactActivity extends AppCompatActivity {
     /**
      * The implementation of the calling of various emergency services
      */
-    private void makePhoneCall() {
-        String number = "995"; //string array can be introduced if more emergency numbers are to be added
+    private void makePhoneCall(int index) {
         if (ContextCompat.checkSelfPermission(ContactActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ContactActivity.this, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
         } else {
-            String dial = "tel:" + number;
-            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+contactNumbers[index])));
         }
+
     }
 
     /**
@@ -105,7 +137,7 @@ public class ContactActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CALL) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                makePhoneCall();
+                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
             }
