@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.medicaldiagnosisapp.ApiParser.JsonParse;
-import com.example.medicaldiagnosisapp.entity.Aed;
+import com.example.medicaldiagnosisapp.apiParser.JsonParse;
+import com.example.medicaldiagnosisapp.entities.Aed;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +14,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+/**
+ * AedAsyncTask starts the reading of resources in the background
+ * the moment the application begins. Makes resource extracting easier
+ * when required by the application.
+ * @author Sheng Rong, Darren, Leonard, Bryan, Kendra
+ */
 public class AedAsyncTask extends AsyncTask<Void, Void, Aed[]> {
 
     private static final String TAG = AedAsyncTask.class.getSimpleName();
@@ -25,14 +31,18 @@ public class AedAsyncTask extends AsyncTask<Void, Void, Aed[]> {
     private Context context;
 
     /**
-     * for getting assets
-     * @param myContext
+     * In order to get context specific information. e.g. getting assets
+     * @param myContext the current instance of the activity
      */
     public AedAsyncTask (AedTaskCallback callback, Context myContext) {
         this.context = myContext;
         this.callback = callback;
     }
 
+    /**
+     * Part of AsynTask implementation
+     * Checks if this activity has been instantiated before
+     */
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -41,6 +51,12 @@ public class AedAsyncTask extends AsyncTask<Void, Void, Aed[]> {
         }
     }
 
+    /**
+     * Part of AsynTask implementation
+     * Parses the resource file while other activities are running
+     * @param voids
+     * @return null if successful, error message if exception occurred
+     */
     @Override
     protected Aed[] doInBackground(Void... voids) {
         try {
@@ -57,6 +73,11 @@ public class AedAsyncTask extends AsyncTask<Void, Void, Aed[]> {
         return null;
     }
 
+    /**
+     * Part of AsynTask implementation
+     * Executed after AsynTask finishes
+     * @param aeds Object array that contain all the markers
+     */
     @Override
     protected void onPostExecute(Aed[] aeds) {
         if (callback != null && aeds != null) {
@@ -64,6 +85,11 @@ public class AedAsyncTask extends AsyncTask<Void, Void, Aed[]> {
         }
     }
 
+    /**
+     * Parses a JSON file to get relevant information
+     * @param results String of the JSON
+     * @return aeds Object array that contain all the markers
+     */
     private Aed[] parseJSON(String results){
 
         JSONArray features = null;
@@ -103,6 +129,12 @@ public class AedAsyncTask extends AsyncTask<Void, Void, Aed[]> {
         return aeds;
     }
 
+    /**
+     * Interface of TaskCallBack
+     * Implementation of onPreExecute_Task and
+     * Implementation of onPostExecute_Task has been
+     * implemented here
+     */
     public interface AedTaskCallback {
         void onPreExecuteAedTask();
 
