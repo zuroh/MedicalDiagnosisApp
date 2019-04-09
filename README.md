@@ -26,7 +26,8 @@ Android phone with playstore capability
 
 * ~~Logging~~
 * ~~Bottom Taskbar~~
-* ~~Optimise KML parser ~~
+* ~~Optimise KML Parser~~
+
 
 ## Future prospects
 
