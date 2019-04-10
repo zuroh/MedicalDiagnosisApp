@@ -255,7 +255,7 @@ public class DiagnoseActivityPage2 extends AppCompatActivity implements IGPSActi
                                 boolean checked = ((CheckBox)v).isChecked();
                                 if(checked){
                                     diagnoseArr[9]=diagnoseArr[9]+1;
-                                    diagnoseArr[10]=diagnoseArr[10]+1;
+                                    diagnoseArr[10]=diagnoseArr[10]+3;
                                 }
 
                             }

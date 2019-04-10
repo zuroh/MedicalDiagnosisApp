@@ -121,7 +121,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
         int z ;
         double first,second,third;
         first = second = third = Double.MIN_VALUE;
-        for(z=3;z<10;z++){
+        for(z=3;z<11;z++){
             if (diagnoseArr[z] > first)
             {
                 third = second;
@@ -143,7 +143,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
         int j=0;
         int k = 0;
         int l =0;
-        while (j < 10) {
+        while (j < 11) {
 
             // if the i-th element is t
             // then return the index
@@ -156,7 +156,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
             }
         }
 
-        while (k < 10) {
+        while (k < 11) {
 
             // if the i-th element is t
             // then return the index
@@ -169,7 +169,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
             }
         }
 
-        while (l < 10) {
+        while (l < 11) {
 
             // if the i-th element is t
             // then return the index
@@ -978,7 +978,7 @@ public class DiagnoseActivityPage3 extends AppCompatActivity implements IGPSActi
                 double max = diagnoseArr[3];
                 int index = 3;
 
-                for(int j=3;j<10;j++){
+                for(int j=3;j<11;j++){
                     if(max<diagnoseArr[j]) {
                         max = diagnoseArr[j];
                         index=j;

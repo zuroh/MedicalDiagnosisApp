@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.text.TextUtils;
 
 
 public class DiagnoseActivityPage1 extends AppCompatActivity {
@@ -86,6 +87,7 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
                 //get Age and store as a variable to be passed later
                 EditText getAge = findViewById(R.id.enterAge);
                 int victimAge = Integer.parseInt(getAge.getText().toString());
+                String stringAge = getAge.getText().toString();
 
 
                 //get Gender and store as a variable to be passed later
@@ -107,6 +109,7 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
 
                     toast2.show();
                 }
+
                 else {
 
                     //change back
