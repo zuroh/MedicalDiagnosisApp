@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
+import android.text.TextUtils;
 
 import com.example.medicaldiagnosisapp.R;
 
@@ -123,6 +125,7 @@ public class DiagnoseActivityPage1 extends AppCompatActivity {
 
                     toast2.show();
                 }
+
                 else {
 
                     //change back
