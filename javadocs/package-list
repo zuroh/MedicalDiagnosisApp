@@ -1,0 +1,6 @@
+com.example.medicaldiagnosisapp
+com.example.medicaldiagnosisapp.activity
+com.example.medicaldiagnosisapp.apiParser
+com.example.medicaldiagnosisapp.entities
+com.example.medicaldiagnosisapp.interfaces
+com.example.medicaldiagnosisapp.utilities
